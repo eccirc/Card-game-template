@@ -8,5 +8,38 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="./app.js" async defer></script>
   </head>
-  <body></body>
+  <body>
+    <header><h1>Game name</h1></header>
+    <main>
+      <section class="player" id="player_1">
+        <div class="cards">
+          <!-- This contains the players current cards in hand -->
+        </div>
+        <div id="player_1_played">
+          <!-- This contains combinations of cards LAID by the player -->
+        </div>
+      </section>
+      <section class="player" id="player_2">
+        <div class="cards">
+          <!-- This contains the players current cards in hand -->
+        </div>
+        <div id="player_2_played">
+          <!-- This contains combinations of cards LAID by the player -->
+        </div>
+      </section>
+      <section id="board">
+        <div id="main_pile">
+          <!-- This contains all of the cards left after players cards are dealt or discarded -->
+        </div>
+        <div id="discard_pile">
+          <!-- This contains cards discarded either from the players hands or from the main pile -->
+        </div>
+      </section>
+      <section id="score_area">
+        <div class="round">
+          <!-- This contains information about the round - which round, and the players running total score -->
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
