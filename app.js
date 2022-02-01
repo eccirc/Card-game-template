@@ -45,14 +45,14 @@ class Game {
   }
   gameTurnChecker(pile) {
     if (this._turn % 2 === 0) {
-      this.pileClickHandler(pile, "player1");
+      this.playerMethodHandler(pile, "player1");
     } else {
-      this.pileClickHandler(pile, "player2");
+      this.playerMethodHandler(pile, "player2");
     }
     this._turn++;
   }
 
-  pileClickHandler(pile, player) {
+  playerMethodHandler(pile, player) {
     let value = `${player} added card from ${pile} pile`;
     this._players[player].addCard(value);
     this._players[player].appendCardToElement(value);
