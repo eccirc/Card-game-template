@@ -38,7 +38,7 @@ class Game {
       console.log("main clicked");
       if (this._turn % 2 === 0) {
         this._players.player1.addCard("p1 card from main pile");
-        this._players.player1.element = "p1 card from main pile";
+        this._players.player1.appendCardToElement("p1 card from main pile");
       } else {
         this._players.player2.addCard("p2 card from main pile");
       }
@@ -87,7 +87,7 @@ class Player {
   get element() {
     return this._element;
   }
-  element(text) {
+  appendCardToElement(text) {
     console.log("setting element", text);
     this._element.innerHTML = text;
   }
