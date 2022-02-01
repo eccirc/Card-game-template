@@ -14,26 +14,71 @@ Events:
 
 */
 
+class Game {
+  constructor(board) {
+    this._board = board;
+    this._turn = 0;
+    this.addMainPileListener();
+    this.addDiscardPileListner();
+    this._players = {
+      player1: new Player("Player 1"),
+      player2: new Player("Player 2"),
+    };
+  }
+  addMainPileListener() {
+    this._board.mainPile.addEventListener("click", (event) => {
+      console.log("main clicked");
+      if (this._turn % 2 === 0) {
+        this._players.player1.addCard("p1 card from main pile");
+      } else {
+        this._players.player2.addCard("p2 card from main pile");
+      }
+      this._turn++;
+    });
+  }
+  addDiscardPileListner() {
+    this._board.discardPile.addEventListener("click", (event) => {
+      console.log("discarded clicked");
+      if (this._turn % 2 === 0) {
+        this._players.player1.addCard("p1 card from discard pile");
+      } else {
+        this._players.player2.addCard("p2 card from discard pile");
+      }
+      this._turn++;
+    });
+  }
+}
+
+class Board {
+  constructor(mainPile, discardPile) {
+    this._mainPile = mainPile;
+    this._discardPile = discardPile;
+  }
+  get mainPile() {
+    return this._mainPile;
+  }
+  get discardPile() {
+    return this._discardPile;
+  }
+}
+
 class Player {
   constructor(name) {
     this._name = name;
     this._hand = [];
   }
-}
-
-class Board {
-  constructor(remaining, discarded) {
-    this._remaining = remaining;
-    this._discarded = discarded;
+  addCard(card) {
+    this._hand.push(card);
+    console.log(this._hand);
+  }
+  get hand() {
+    return this._hand;
   }
 }
 
-class Game {
-  constructor(board) {
-    this._board = board;
-    this._players = {
-        player1 = new Player("Player 1"),
-        player2 = new Player("Player 2")
-    };
-  }
-}
+const board = new Board(
+  document.getElementById("main_pile"),
+  document.getElementById("discard_pile")
+);
+
+const tens = new Game(board);
