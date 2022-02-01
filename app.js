@@ -35,22 +35,12 @@ class Game {
   }
   addMainPileListener() {
     this._board.mainPile.addEventListener("click", (event) => {
-      if (this._turn % 2 === 0) {
-        this.pileClickHandler("main", "player1");
-      } else {
-        this.pileClickHandler("main", "player2");
-      }
-      this._turn++;
+      this.gameTurnChecker("main");
     });
   }
   addDiscardPileListner() {
     this._board.discardPile.addEventListener("click", (event) => {
-      if (this._turn % 2 === 0) {
-        this.pileClickHandler("discard", "player1");
-      } else {
-        this.pileClickHandler("discard", "player2");
-      }
-      this._turn++;
+      this.gameTurnChecker("discard");
     });
   }
   gameTurnChecker(pile) {
