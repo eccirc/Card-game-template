@@ -43,3 +43,7 @@ class Game {
     };
   }
 }
+
+const board = new Board(document.getElementById("main_pile"), document.getElementById("discard_pile"))
+
+const tens = new Game(board)
