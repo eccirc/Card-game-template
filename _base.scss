@@ -1,0 +1,35 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+.main {
+  display: grid;
+  height: 90vh;
+  grid-template-columns: 20vw, 60vw, 20vw;
+  grid-template-rows: 5vh, 30vh, 30vh, 10vh;
+  grid-template-areas:
+    "p1 board p2"
+    "p1 board p2"
+    "p1 board p2"
+    "score score score";
+  #player_1 {
+    grid-area: p1;
+  }
+  #player_2 {
+    grid-area: p2;
+  }
+  #board {
+    grid-area: board;
+  }
+  #score_area {
+    grid-area: score;
+  }
+}

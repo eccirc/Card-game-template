@@ -1,3 +1,60 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 10vh;
+}
+
+.main {
+  display: -ms-grid;
+  display: grid;
+  height: 90vh;
+  -ms-grid-columns: 20vw, 60vw, 20vw;
+      grid-template-columns: 20vw, 60vw, 20vw;
+  -ms-grid-rows: 5vh, 30vh, 30vh, 10vh;
+      grid-template-rows: 5vh, 30vh, 30vh, 10vh;
+      grid-template-areas: "p1 board p2" "p1 board p2" "p1 board p2" "score score score";
+}
+
+.main #player_1 {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 1;
+  grid-area: p1;
+}
+
+.main #player_2 {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 3;
+  grid-area: p2;
+}
+
+.main #board {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 2;
+  grid-area: board;
+}
+
+.main #score_area {
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: score;
+}
+
 .board__pile {
   border: 2px solid black;
 }
