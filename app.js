@@ -41,6 +41,7 @@ class Game {
         this._players.player1.appendCardToElement("p1 card from main pile");
       } else {
         this._players.player2.addCard("p2 card from main pile");
+        this._players.player2.appendCardToElement("p2 card from main pile");
       }
       this._turn++;
     });
@@ -50,8 +51,10 @@ class Game {
       console.log("discarded clicked");
       if (this._turn % 2 === 0) {
         this._players.player1.addCard("p1 card from discard pile");
+        this._players.player1.appendCardToElement("p1 card from discard pile");
       } else {
         this._players.player2.addCard("p2 card from discard pile");
+        this._players.player2.appendCardToElement("p2 card from discard pile");
       }
       this._turn++;
     });
@@ -88,8 +91,10 @@ class Player {
     return this._element;
   }
   appendCardToElement(text) {
-    console.log("setting element", text);
-    this._element.innerHTML = text;
+    //console.log("setting element", text);
+    const newDiv = document.createElement("div");
+    newDiv.innerHTML = text;
+    this._element.appendChild(newDiv);
   }
 }
 
