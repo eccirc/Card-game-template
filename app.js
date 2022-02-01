@@ -19,6 +19,12 @@ class Player {
     this._name = name;
     this._hand = [];
   }
+  addCard(card){
+      this._hand.push(card)
+  }
+  get hand(){
+      return this._hand;
+  }
 }
 
 class Board {
