@@ -59,6 +59,12 @@ class Game {
       this._turn++;
     });
   }
+  pileClickHandler(pile, player, value) {
+    console.log(`${pile} clicked`);
+    value = `${player} card added from ${pile}`;
+    this._players[player].addCard(value);
+    this._players[player].appendCardToElement(value);
+  }
 }
 
 class Board {
