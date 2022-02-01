@@ -28,11 +28,23 @@ class Game {
   addMainPileListener() {
     this._board.mainPile.addEventListener("click", (event) => {
       console.log("main clicked");
+      if (this._turn % 2 === 0) {
+        this._players.player1.addCard("p1 card from main pile");
+      } else {
+        this._players.player2.addCard("p2 card from main pile");
+      }
+      this._turn++;
     });
   }
   addDiscardPileListner() {
     this._board.discardPile.addEventListener("click", (event) => {
       console.log("discarded clicked");
+      if (this._turn % 2 === 0) {
+        this._players.player1.addCard("p1 card from discard pile");
+      } else {
+        this._players.player2.addCard("p2 card from discard pile");
+      }
+      this._turn++;
     });
   }
 }
@@ -57,6 +69,7 @@ class Player {
   }
   addCard(card) {
     this._hand.push(card);
+    console.log(this._hand);
   }
   get hand() {
     return this._hand;
