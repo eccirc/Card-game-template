@@ -55,7 +55,6 @@ class Game {
   playerMethodHandler(pile, player) {
     let value = `${player} added card from ${pile} pile`;
     this._players[player].addCard(value);
-    this._players[player].appendCardToElement(value);
   }
 }
 
@@ -80,6 +79,7 @@ class Player {
   }
   addCard(card) {
     this._hand.push(card);
+    this.appendCardToElement(card);
   }
   get hand() {
     return this._hand;
