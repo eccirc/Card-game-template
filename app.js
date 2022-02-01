@@ -35,33 +35,29 @@ class Game {
   }
   addMainPileListener() {
     this._board.mainPile.addEventListener("click", (event) => {
-      console.log("main clicked");
+      //console.log("main clicked");
       if (this._turn % 2 === 0) {
-        this._players.player1.addCard("p1 card from main pile");
-        this._players.player1.appendCardToElement("p1 card from main pile");
+        this.pileClickHandler("main", "player1");
       } else {
-        this._players.player2.addCard("p2 card from main pile");
-        this._players.player2.appendCardToElement("p2 card from main pile");
+        this.pileClickHandler("main", "player2");
       }
       this._turn++;
     });
   }
   addDiscardPileListner() {
     this._board.discardPile.addEventListener("click", (event) => {
-      console.log("discarded clicked");
+      // console.log("discarded clicked");
       if (this._turn % 2 === 0) {
-        this._players.player1.addCard("p1 card from discard pile");
-        this._players.player1.appendCardToElement("p1 card from discard pile");
+        this.pileClickHandler("discard", "player1");
       } else {
-        this._players.player2.addCard("p2 card from discard pile");
-        this._players.player2.appendCardToElement("p2 card from discard pile");
+        this.pileClickHandler("discard", "player2");
       }
       this._turn++;
     });
   }
-  pileClickHandler(pile, player, value) {
-    console.log(`${pile} clicked`);
-    value = `${player} card added from ${pile}`;
+  pileClickHandler(pile, player) {
+    //console.log(`${pile} clicked`);
+    let value = `${player} added card from ${pile} pile`;
     this._players[player].addCard(value);
     this._players[player].appendCardToElement(value);
   }
@@ -88,7 +84,7 @@ class Player {
   }
   addCard(card) {
     this._hand.push(card);
-    console.log(this._hand);
+    //console.log(this._hand);
   }
   get hand() {
     return this._hand;
