@@ -1,5 +1,5 @@
 /*
-SECOND ITERATION - (VERY) BASIC FUNCTIONALITY
+THIRD ITERATION - (VERY) BASIC FUNCTIONALITY
  
 Classes: 
 
@@ -7,11 +7,15 @@ Classes:
 (- One board)
 - Very basic game logic
 
-Events:
+Events/ To Do:
 (- player clicks on board 'deck' and adds one 'card' to their hand (Player class method ?) 1)
 (- then switch to the next player (Game class method ? ) 1)
 (- add an element property to the player class to hold corresponding HTML element 2)
 (- display the each players hand in their respective area 2)
+- create styles in SCSS to more clearly de-lineate areas and components
+    - components for areas
+    - components for cards
+- create a card deck object to be used with the Game class
 
 
 */
