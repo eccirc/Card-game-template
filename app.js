@@ -23,8 +23,14 @@ class Game {
     this.addMainPileListener();
     this.addDiscardPileListner();
     this._players = {
-      player1: new Player("Player 1"),
-      player2: new Player("Player 2"),
+      player1: new Player(
+        "Player 1",
+        document.getElementById("player_1_cards")
+      ),
+      player2: new Player(
+        "Player 2",
+        document.getElementById("player_2_cards")
+      ),
     };
   }
   addMainPileListener() {
@@ -32,6 +38,7 @@ class Game {
       console.log("main clicked");
       if (this._turn % 2 === 0) {
         this._players.player1.addCard("p1 card from main pile");
+        this._players.player1.element = "p1 card from main pile";
       } else {
         this._players.player2.addCard("p2 card from main pile");
       }
@@ -65,8 +72,9 @@ class Board {
 }
 
 class Player {
-  constructor(name) {
+  constructor(name, element) {
     this._name = name;
+    this._element = element;
     this._hand = [];
   }
   addCard(card) {
@@ -75,6 +83,13 @@ class Player {
   }
   get hand() {
     return this._hand;
+  }
+  get element() {
+    return this._element;
+  }
+  element(text) {
+    console.log("setting element", text);
+    this._element.innerHTML = text;
   }
 }
 
