@@ -8,10 +8,10 @@ Classes:
 - Very basic game logic
 
 Events:
-(- player clicks on board 'deck' and adds one 'card' to their hand (Player class method ?))
-(- then switch to the next player (Game class method ? ))
-- add an element property to the player class to hold corresponding HTML element
-- display the each players hand in their respective area
+(- player clicks on board 'deck' and adds one 'card' to their hand (Player class method ?) 1)
+(- then switch to the next player (Game class method ? ) 1)
+(- add an element property to the player class to hold corresponding HTML element 2)
+(- display the each players hand in their respective area 2)
 
 
 */
