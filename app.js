@@ -35,7 +35,6 @@ class Game {
   }
   addMainPileListener() {
     this._board.mainPile.addEventListener("click", (event) => {
-      //console.log("main clicked");
       if (this._turn % 2 === 0) {
         this.pileClickHandler("main", "player1");
       } else {
@@ -46,7 +45,6 @@ class Game {
   }
   addDiscardPileListner() {
     this._board.discardPile.addEventListener("click", (event) => {
-      // console.log("discarded clicked");
       if (this._turn % 2 === 0) {
         this.pileClickHandler("discard", "player1");
       } else {
@@ -55,8 +53,16 @@ class Game {
       this._turn++;
     });
   }
+  gameTurnChecker(pile) {
+    if (this._turn % 2 === 0) {
+      this.pileClickHandler(pile, "player1");
+    } else {
+      this.pileClickHandler(pile, "player2");
+    }
+    this._turn++;
+  }
+
   pileClickHandler(pile, player) {
-    //console.log(`${pile} clicked`);
     let value = `${player} added card from ${pile} pile`;
     this._players[player].addCard(value);
     this._players[player].appendCardToElement(value);
@@ -84,7 +90,6 @@ class Player {
   }
   addCard(card) {
     this._hand.push(card);
-    //console.log(this._hand);
   }
   get hand() {
     return this._hand;
@@ -93,7 +98,6 @@ class Player {
     return this._element;
   }
   appendCardToElement(text) {
-    //console.log("setting element", text);
     const newDiv = document.createElement("div");
     newDiv.innerHTML = text;
     this._element.appendChild(newDiv);
