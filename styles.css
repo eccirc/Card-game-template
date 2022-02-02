@@ -82,11 +82,11 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 10px;
   -ms-grid-row: 1;
   -ms-grid-row-span: 3;
   -ms-grid-column: 2;
   grid-area: board;
-  border: 2px solid black;
 }
 
 .main #score_area {
