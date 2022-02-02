@@ -19,6 +19,7 @@ Events/ To Do:
 
 
 */
+import { cards } from "./cards";
 
 class Game {
   constructor(board) {
