@@ -1,7 +1,11 @@
 * {
   padding: 0;
   margin: 0;
+  text-align: center;
+  box-sizing: border-box;
 }
+
+$border: 2px solid black;
 
 .header {
   display: flex;
@@ -12,6 +16,7 @@
 
 .main {
   display: grid;
+  gap: 10px;
   height: 90vh;
   grid-template-columns: 20vw, 60vw, 20vw;
   grid-template-rows: 5vh, 30vh, 30vh, 10vh;
@@ -20,16 +25,42 @@
     "p1 board p2"
     "p1 board p2"
     "score score score";
+  .board {
+    &__pile {
+      border: $border;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      h2 {
+        align-self: flex-start;
+      }
+      .card {
+        width: 150px;
+        height: 200px;
+        border: $border;
+        position: absolute;
+      }
+      .card:nth-child(2n + 0) {
+        transform: translateX(4px) translateY(4px);
+      }
+    }
+  }
   #player_1 {
     grid-area: p1;
+    border: $border;
   }
   #player_2 {
     grid-area: p2;
+    border: $border;
   }
   #board {
+    display: flex;
     grid-area: board;
+    border: $border;
   }
   #score_area {
     grid-area: score;
+    border: $border;
   }
 }
