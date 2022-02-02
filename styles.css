@@ -6,6 +6,14 @@
           box-sizing: border-box;
 }
 
+.red {
+  color: #f85050;
+}
+
+.black {
+  color: #272727;
+}
+
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -23,7 +31,6 @@
   font-size: 150px;
   border-radius: 10px;
   background-color: white;
-  color: blue;
 }
 
 .card--main {

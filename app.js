@@ -99,6 +99,8 @@ class Game {
     const cardObj = this._shuffled.pop();
     this._board.mainPile.removeChild(this._board.mainPile.lastChild);
     const element = cardObj.div;
+    element.innerHTML = cardObj.symbol;
+    element.classList.add(cardObj.colour);
     element.classList.remove("card--main");
     this._players[player].addCard(element);
   }
