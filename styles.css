@@ -21,10 +21,13 @@
 
 .card {
   font-size: 150px;
-  position: absolute;
   border-radius: 10px;
   background-color: white;
   color: blue;
+}
+
+.card--main {
+  position: absolute;
 }
 
 .main {
@@ -56,6 +59,18 @@
 .main .board__pile h2 {
   -ms-flex-item-align: start;
       align-self: flex-start;
+}
+
+.main .player__cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.main .player__cards .card {
+  font-size: 100px;
 }
 
 .main #player_1 {

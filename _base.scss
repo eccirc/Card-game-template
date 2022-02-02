@@ -16,10 +16,13 @@ $border: 2px solid black;
 
 .card {
   font-size: 150px;
-  position: absolute;
+  // position: absolute;
   border-radius: 10px;
   background-color: white;
   color: blue;
+}
+.card--main {
+  position: absolute;
 }
 
 .main {
@@ -45,6 +48,16 @@ $border: 2px solid black;
       }
     }
   }
+  .player {
+    &__cards {
+      display: flex;
+      flex-wrap: wrap;
+      .card {
+        font-size: 100px;
+      }
+    }
+  }
+
   #player_1 {
     grid-area: p1;
     border: $border;

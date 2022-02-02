@@ -51,6 +51,8 @@ class Game {
     //this._shuffled = this._deck.cardsShuffled();
     this.populateShuffledDeck(this._deck.cardsShuffled());
     this.populateMainPile(this._shuffled);
+    this.dealCards(10, "player1");
+    this.dealCards(10, "player2");
     console.log(this._shuffled);
   }
   populateShuffledDeck(array) {
@@ -58,7 +60,7 @@ class Game {
       const newObj = { ...item };
       const element = document.createElement("div");
       element.classList.add(`card`);
-      element.classList.add(`card-main`);
+      element.classList.add(`card--main`);
       element.innerHTML = "🂠";
       newObj.div = element;
       return newObj;
@@ -70,7 +72,9 @@ class Game {
     });
   }
   dealCards(amount, player) {
-    for (let i = 0; i < amount; i++) {}
+    for (let i = 0; i < amount; i++) {
+      this.addCardToPlayer(player);
+    }
   }
   addMainPileListener() {
     this._board.mainPile.addEventListener("click", (event) => {
@@ -95,6 +99,7 @@ class Game {
     const cardObj = this._shuffled.pop();
     this._board.mainPile.removeChild(this._board.mainPile.lastChild);
     const element = cardObj.div;
+    element.classList.remove("card--main");
     this._players[player].addCard(element);
   }
 }
