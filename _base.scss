@@ -56,8 +56,8 @@ $border: 2px solid black;
   }
   #board {
     display: flex;
+    gap: 10px;
     grid-area: board;
-    border: $border;
   }
   #score_area {
     grid-area: score;
