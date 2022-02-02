@@ -23,7 +23,7 @@ Events/ To Do:
 
 
 */
-import { cards } from "./cards";
+import { cards } from "./cards.mjs";
 
 class Game {
   constructor(board) {
