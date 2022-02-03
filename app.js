@@ -62,8 +62,9 @@ class Game {
     //this._shuffled = this._deck.cardsShuffled();
     this.populateShuffledDeck(this._deck.cardsShuffled());
     this.populateMainPile(this._shuffled);
-    this.dealCards(10, "player1");
-    this.dealCards(10, "player2");
+    //this.dealCards(32, "mainDeck");
+    this.dealCards(10, this._players, "player1");
+    this.dealCards(10, this._players, "player2");
     console.log(this._board.mainPile);
   }
   populateShuffledDeck(array) {
@@ -83,9 +84,9 @@ class Game {
       this._board.mainPile.appendChild(element.div);
     });
   }
-  dealCards(amount, player) {
+  dealCards(amount, area, deck) {
     for (let i = 0; i < amount; i++) {
-      this.addCardToPlayer(player);
+      this.addCardToDeck(area, deck);
     }
   }
   addMainPileListener() {
@@ -100,14 +101,14 @@ class Game {
   }
   gameTurnChecker(pile) {
     if (this._turn % 2 === 0) {
-      this.addCardToPlayer("player1");
+      this.addCardToDeck(this._players, "player1");
     } else {
-      this.addCardToPlayer("player2");
+      this.addCardToDeck(this._players, "player2");
     }
     this._turn++;
   }
 
-  addCardToPlayer(player) {
+  addCardToDeck(area, deck) {
     const cardObj = this._shuffled.pop();
     this._board.mainPile.removeChild(this._board.mainPile.lastChild);
     const element = cardObj.div;
@@ -115,13 +116,13 @@ class Game {
     element.innerHTML = cardObj.symbol;
     element.classList.add(cardObj.colour);
     element.classList.remove("card--main");
-    this._players[player].addCard(cardObj);
+    area[deck].addCard(cardObj);
     //console.log(this._players[player]);
   }
-  addCardToDiscard(fromPlay) {
-    const cardObj = this._players[fromPlayer].removedCard();
-    //this._board.discardPile
-  }
+  // addCardToDiscard(fromPlay) {
+  //   const cardObj = this._players[fromPlayer].removedCard();
+  //   //this._board.discardPile
+  // }
 }
 
 class Deck {
