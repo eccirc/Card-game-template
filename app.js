@@ -67,6 +67,12 @@ class Game {
       "discardPile",
       this._players.player1
     );
+    this.addPlayerPileListener(
+      this._pickupArea,
+      "discardPile",
+      this._players.player2
+    );
+    console.log(this._players.player1);
   }
 
   creatCardDownDiv(index) {
@@ -92,39 +98,32 @@ class Game {
   }
   addMainPileListener() {
     this._pickupArea.mainDeck.element.addEventListener("click", (event) => {
-      this.gameTurnChecker("main");
+      this.gameTurnChecker("mainDeck");
     });
   }
   addDiscardPileListner() {
     this._pickupArea.discardPile.element.addEventListener("click", (event) => {
-      this.gameTurnChecker("discard");
+      this.gameTurnChecker("discardPile");
     });
   }
   addPlayerPileListener(area, deckTo, deckFrom) {
     deckFrom.element.addEventListener("click", (event) => {
       this.addCardToDeck(area, deckTo, deckFrom.hand);
+      deckTo.element;
     });
   }
 
   gameTurnChecker(pile) {
     if (this._turn % 2 === 0) {
-      this.addCardToDeck(
-        this._players,
-        "player1",
-        this._pickupArea.mainDeck.hand
-      );
+      this.addCardToDeck(this._players, "player1", this._pickupArea[pile].hand);
     } else {
-      this.addCardToDeck(
-        this._players,
-        "player2",
-        this._pickupArea.mainDeck.hand
-      );
+      this.addCardToDeck(this._players, "player2", this._pickupArea[pile].hand);
     }
     this._turn++;
   }
 
   addCardToDeck(area, deckTo, deckFrom) {
-    const cardObj = deckFrom.pop();
+    const cardObj = deckFrom.pop(); //This needs to be "splice" in order to target the correct element of the array when clicked
     const element = cardObj.div;
     element.style.transform = "translateX(0) translateY(0)";
     element.innerHTML = cardObj.symbol;
