@@ -20,8 +20,8 @@ Events/ To Do:
 (- create a card deck object to be used with the Game class 3)
 (- create a deck class which takes the cards object as a parameter 4)
 (- create a class method 'shuffle' within deck to return a new randomised array 4)
-- make a start game function in Game class which shuffles the cards and adds the cards as new divs to the main pile
-- deal 10 cards to each player - deducted from the main pile
+(- make a start game function in Game class which shuffles the cards and adds the cards as new divs to the main pile 5)
+(- deal 10 cards to each player - deducted from the main pile)
 
 
 */
