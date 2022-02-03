@@ -29,7 +29,9 @@
 
 .card {
   font-size: 150px;
+  border: 2px solid #272727;
   border-radius: 10px;
+  padding: 0;
   background-color: white;
 }
 
@@ -47,6 +49,10 @@
   -ms-grid-rows: 5vh, 30vh, 30vh, 10vh;
       grid-template-rows: 5vh, 30vh, 30vh, 10vh;
       grid-template-areas: "p1 board p2" "p1 board p2" "p1 board p2" "score score score";
+}
+
+.main .board {
+  width: 50vw;
 }
 
 .main .board__pile {

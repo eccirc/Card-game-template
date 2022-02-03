@@ -56,12 +56,13 @@ class Game {
     console.log(this._shuffled);
   }
   populateShuffledDeck(array) {
-    this._shuffled = array.map((item) => {
+    this._shuffled = array.map((item, index) => {
       const newObj = { ...item };
       const element = document.createElement("div");
       element.classList.add(`card`);
       element.classList.add(`card--main`);
       element.innerHTML = "🂠";
+      element.style.transform = `translateX(-${index}px) translateY(-${index}px)`;
       newObj.div = element;
       return newObj;
     });
@@ -99,6 +100,7 @@ class Game {
     const cardObj = this._shuffled.pop();
     this._board.mainPile.removeChild(this._board.mainPile.lastChild);
     const element = cardObj.div;
+    element.style.transform = "translateX(0) translateY(0)";
     element.innerHTML = cardObj.symbol;
     element.classList.add(cardObj.colour);
     element.classList.remove("card--main");
