@@ -22,21 +22,17 @@ Events/ To Do:
 (- create a class method 'shuffle' within deck to return a new randomised array 4)
 (- make a start game function in Game class which shuffles the cards and adds the cards as new divs to the main pile 5)
 (- deal 10 cards to each player - deducted from the main pile)
-- both main deck and discard pile need to be objects - use the same logic as the (previously) Player class and duplicate this
+(- both main deck and discard pile need to be objects - use the same logic as the (previously) Player class and duplicate this 6)
 
 
 */
 import { cards } from "./cards.mjs";
 
 class Game {
-  constructor(board) {
-    this._board = board;
+  constructor() {
     this._deck = new Deck(cards);
     this._shuffled = [];
-    this._shuffledDivs = [];
     this._turn = 0;
-    this.addMainPileListener();
-    this.addDiscardPileListner();
     this._players = {
       player1: new cardsHeld(
         "Player 1",
@@ -59,16 +55,14 @@ class Game {
     };
   }
   startGame() {
-    //this._shuffled = this._deck.cardsShuffled();
     this.populateShuffledDeck(this._deck.cardsShuffled());
-    this.populateMainPile(this._shuffled);
-    //this.dealCards(32, "mainDeck");
     this.dealCards(10, this._players, "player1");
     this.dealCards(10, this._players, "player2");
-    console.log(this._board.mainPile);
+    this.addMainPileListener();
+    this.addDiscardPileListner();
   }
   populateShuffledDeck(array) {
-    this._shuffled = array.map((item, index) => {
+    array.forEach((item, index) => {
       const newObj = { ...item };
       const element = document.createElement("div");
       element.classList.add(`card`);
@@ -76,53 +70,50 @@ class Game {
       element.innerHTML = "🂠";
       element.style.transform = `translateX(-${index}px) translateY(-${index}px)`;
       newObj.div = element;
-      return newObj;
-    });
-  }
-  populateMainPile(array) {
-    array.forEach((element) => {
-      this._board.mainPile.appendChild(element.div);
+      this._pickupArea.mainDeck.addCard(newObj);
     });
   }
   dealCards(amount, area, deck) {
     for (let i = 0; i < amount; i++) {
-      this.addCardToDeck(area, deck);
+      this.addCardToDeck(area, deck, this._pickupArea.mainDeck.hand);
     }
   }
   addMainPileListener() {
-    this._board.mainPile.addEventListener("click", (event) => {
+    this._pickupArea.mainDeck.element.addEventListener("click", (event) => {
       this.gameTurnChecker("main");
     });
   }
   addDiscardPileListner() {
-    this._board.discardPile.addEventListener("click", (event) => {
+    this._pickupArea.discardPile.element.addEventListener("click", (event) => {
       this.gameTurnChecker("discard");
     });
   }
   gameTurnChecker(pile) {
     if (this._turn % 2 === 0) {
-      this.addCardToDeck(this._players, "player1");
+      this.addCardToDeck(
+        this._players,
+        "player1",
+        this._pickupArea.mainDeck.hand
+      );
     } else {
-      this.addCardToDeck(this._players, "player2");
+      this.addCardToDeck(
+        this._players,
+        "player2",
+        this._pickupArea.mainDeck.hand
+      );
     }
     this._turn++;
   }
 
-  addCardToDeck(area, deck) {
-    const cardObj = this._shuffled.pop();
-    this._board.mainPile.removeChild(this._board.mainPile.lastChild);
+  addCardToDeck(area, deckTo, deckFrom) {
+    const cardObj = deckFrom.pop();
     const element = cardObj.div;
     element.style.transform = "translateX(0) translateY(0)";
     element.innerHTML = cardObj.symbol;
     element.classList.add(cardObj.colour);
     element.classList.remove("card--main");
-    area[deck].addCard(cardObj);
-    //console.log(this._players[player]);
+    area[deckTo].addCard(cardObj);
   }
-  // addCardToDiscard(fromPlay) {
-  //   const cardObj = this._players[fromPlayer].removedCard();
-  //   //this._board.discardPile
-  // }
 }
 
 class Deck {
@@ -141,19 +132,6 @@ class Deck {
       shuffledDeck[rnd] = tmp;
     }
     return shuffledDeck;
-  }
-}
-
-class Board {
-  constructor(mainPile, discardPile) {
-    this._mainPile = mainPile;
-    this._discardPile = discardPile;
-  }
-  get mainPile() {
-    return this._mainPile;
-  }
-  get discardPile() {
-    return this._discardPile;
   }
 }
 
@@ -177,19 +155,7 @@ class cardsHeld {
   appendCardToElement(cardDiv) {
     this._element.appendChild(cardDiv);
   }
-  removedCard(cardObj) {
-    this.removeCardElement();
-    return this._hand.pop();
-  }
-  removeCardElement(cardDiv) {
-    this._element.removeChild(cardDiv);
-  }
 }
-
-const board = new Board(
-  document.getElementById("main_pile"),
-  document.getElementById("discard_pile")
-);
 
 const tens = new Game(board);
 tens.startGame();
