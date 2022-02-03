@@ -6,6 +6,14 @@
           box-sizing: border-box;
 }
 
+.red {
+  color: #f85050;
+}
+
+.black {
+  color: #272727;
+}
+
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -19,6 +27,18 @@
   height: 10vh;
 }
 
+.card {
+  font-size: 150px;
+  border: 2px solid #272727;
+  border-radius: 10px;
+  padding: 0;
+  background-color: white;
+}
+
+.card--main {
+  position: absolute;
+}
+
 .main {
   display: -ms-grid;
   display: grid;
@@ -29,6 +49,10 @@
   -ms-grid-rows: 5vh, 30vh, 30vh, 10vh;
       grid-template-rows: 5vh, 30vh, 30vh, 10vh;
       grid-template-areas: "p1 board p2" "p1 board p2" "p1 board p2" "score score score";
+}
+
+.main .board {
+  width: 50vw;
 }
 
 .main .board__pile {
@@ -50,16 +74,16 @@
       align-self: flex-start;
 }
 
-.main .board__pile .card {
-  width: 150px;
-  height: 200px;
-  border: 2px solid black;
-  position: absolute;
+.main .player__cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
-.main .board__pile .card:nth-child(2n + 0) {
-  -webkit-transform: translateX(4px) translateY(4px);
-          transform: translateX(4px) translateY(4px);
+.main .player__cards .card {
+  font-size: 100px;
 }
 
 .main #player_1 {

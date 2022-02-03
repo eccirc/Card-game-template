@@ -7,11 +7,29 @@
 
 $border: 2px solid black;
 
+.red {
+  color: rgb(248, 80, 80);
+}
+.black {
+  color: #272727;
+}
+
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 10vh;
+}
+
+.card {
+  font-size: 150px;
+  border: 2px solid #272727;
+  border-radius: 10px;
+  padding: 0;
+  background-color: white;
+}
+.card--main {
+  position: absolute;
 }
 
 .main {
@@ -26,6 +44,7 @@ $border: 2px solid black;
     "p1 board p2"
     "score score score";
   .board {
+    width: 50vw;
     &__pile {
       border: $border;
       width: 100%;
@@ -35,17 +54,18 @@ $border: 2px solid black;
       h2 {
         align-self: flex-start;
       }
+    }
+  }
+  .player {
+    &__cards {
+      display: flex;
+      flex-wrap: wrap;
       .card {
-        width: 150px;
-        height: 200px;
-        border: $border;
-        position: absolute;
-      }
-      .card:nth-child(2n + 0) {
-        transform: translateX(4px) translateY(4px);
+        font-size: 100px;
       }
     }
   }
+
   #player_1 {
     grid-area: p1;
     border: $border;
