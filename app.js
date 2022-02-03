@@ -72,7 +72,7 @@ class Game {
       "discardPile",
       this._players.player2
     );
-    console.log(this._players.player1);
+    //console.log(this._players.player1);
   }
 
   creatCardDownDiv(index) {
@@ -108,8 +108,15 @@ class Game {
   }
   addPlayerPileListener(area, deckTo, deckFrom) {
     deckFrom.element.addEventListener("click", (event) => {
-      this.addCardToDeck(area, deckTo, deckFrom.hand);
-      deckTo.element;
+      const cardObj = deckFrom.hand.filter(
+        (item) => item.div.innerHTML === event.target.innerHTML
+      )[0];
+      cardObj.div.classList.add(`card--main`);
+      const offset = deckFrom.hand.length;
+      cardObj.div.style.transform = `translateX(-${offset}px) translateY(-${offset}px)`;
+      deckFrom.hand.splice(deckFrom.hand.indexOf(cardObj), 1);
+      deckFrom.element.removeChild(cardObj.div);
+      area[deckTo].addCard(cardObj);
     });
   }
 
@@ -123,7 +130,8 @@ class Game {
   }
 
   addCardToDeck(area, deckTo, deckFrom) {
-    const cardObj = deckFrom.pop(); //This needs to be "splice" in order to target the correct element of the array when clicked
+    const cardObj = deckFrom.pop(); //This needs to be "slice"  and splice in order to remove it in order to target the correct element of the array when clicked
+    //const cardObj = deckFrom.slice(deckFrom)
     const element = cardObj.div;
     element.style.transform = "translateX(0) translateY(0)";
     element.innerHTML = cardObj.symbol;
