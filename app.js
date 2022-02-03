@@ -23,6 +23,8 @@ Events/ To Do:
 (- make a start game function in Game class which shuffles the cards and adds the cards as new divs to the main pile 5)
 (- deal 10 cards to each player - deducted from the main pile)
 (- both main deck and discard pile need to be objects - use the same logic as the (previously) Player class and duplicate this 6)
+- add event listeners for each players card deck to let them move cards around
+
 
 
 */
@@ -60,16 +62,26 @@ class Game {
     this.dealCards(10, this._players, "player2");
     this.addMainPileListener();
     this.addDiscardPileListner();
+    this.addPlayerPileListener(
+      this._pickupArea,
+      "discardPile",
+      this._players.player1
+    );
   }
+
+  creatCardDownDiv(index) {
+    const element = document.createElement("div");
+    element.classList.add(`card`);
+    element.classList.add(`card--main`);
+    element.innerHTML = "🂠";
+    element.style.transform = `translateX(-${index}px) translateY(-${index}px)`;
+    return element;
+  }
+
   populateShuffledDeck(array) {
     array.forEach((item, index) => {
       const newObj = { ...item };
-      const element = document.createElement("div");
-      element.classList.add(`card`);
-      element.classList.add(`card--main`);
-      element.innerHTML = "🂠";
-      element.style.transform = `translateX(-${index}px) translateY(-${index}px)`;
-      newObj.div = element;
+      newObj.div = this.creatCardDownDiv(index);
       this._pickupArea.mainDeck.addCard(newObj);
     });
   }
@@ -88,6 +100,12 @@ class Game {
       this.gameTurnChecker("discard");
     });
   }
+  addPlayerPileListener(area, deckTo, deckFrom) {
+    deckFrom.element.addEventListener("click", (event) => {
+      this.addCardToDeck(area, deckTo, deckFrom.hand);
+    });
+  }
+
   gameTurnChecker(pile) {
     if (this._turn % 2 === 0) {
       this.addCardToDeck(
