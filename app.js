@@ -23,7 +23,7 @@ Events/ To Do:
 (- make a start game function in Game class which shuffles the cards and adds the cards as new divs to the main pile 5)
 (- deal 10 cards to each player - deducted from the main pile)
 (- both main deck and discard pile need to be objects - use the same logic as the (previously) Player class and duplicate this 6)
-- add event listeners for each players card deck to let them move cards around
+(- add event listeners for each players card deck to let them move cards around 7)
 
 
 
