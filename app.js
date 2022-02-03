@@ -1,5 +1,5 @@
 /*
-FIFTH ITERATION - (VERY) BASIC FUNCTIONALITY
+SIXTH ITERATION - CLASSES OVERRHAUL - EVERYTHING IS AN OBJECT
  
 Classes: 
 
@@ -22,6 +22,7 @@ Events/ To Do:
 (- create a class method 'shuffle' within deck to return a new randomised array 4)
 (- make a start game function in Game class which shuffles the cards and adds the cards as new divs to the main pile 5)
 (- deal 10 cards to each player - deducted from the main pile)
+- both main deck and discard pile need to be objects - use the same logic as the (previously) Player class and duplicate this
 
 
 */
@@ -37,13 +38,23 @@ class Game {
     this.addMainPileListener();
     this.addDiscardPileListner();
     this._players = {
-      player1: new Player(
+      player1: new cardsHeld(
         "Player 1",
         document.getElementById("player_1_cards")
       ),
-      player2: new Player(
+      player2: new cardsHeld(
         "Player 2",
         document.getElementById("player_2_cards")
+      ),
+    };
+    this._pickupArea = {
+      mainDeck: new cardsHeld(
+        "main deck",
+        document.getElementById("main_pile")
+      ),
+      discardPile: new cardsHeld(
+        "discard pile",
+        document.getElementById("discard_pile")
       ),
     };
   }
@@ -53,7 +64,7 @@ class Game {
     this.populateMainPile(this._shuffled);
     this.dealCards(10, "player1");
     this.dealCards(10, "player2");
-    console.log(this._shuffled);
+    console.log(this._board.mainPile);
   }
   populateShuffledDeck(array) {
     this._shuffled = array.map((item, index) => {
@@ -104,7 +115,12 @@ class Game {
     element.innerHTML = cardObj.symbol;
     element.classList.add(cardObj.colour);
     element.classList.remove("card--main");
-    this._players[player].addCard(element);
+    this._players[player].addCard(cardObj);
+    //console.log(this._players[player]);
+  }
+  addCardToDiscard(fromPlay) {
+    const cardObj = this._players[fromPlayer].removedCard();
+    //this._board.discardPile
   }
 }
 
@@ -140,15 +156,11 @@ class Board {
   }
 }
 
-class Player {
+class cardsHeld {
   constructor(name, element) {
     this._name = name;
     this._element = element;
     this._hand = [];
-  }
-  addCard(card) {
-    this._hand.push(card);
-    this.appendCardToElement(card);
   }
   get hand() {
     return this._hand;
@@ -156,8 +168,20 @@ class Player {
   get element() {
     return this._element;
   }
+  addCard(cardObj) {
+    this._hand.push(cardObj);
+    this.appendCardToElement(cardObj.div);
+  }
+
   appendCardToElement(cardDiv) {
     this._element.appendChild(cardDiv);
+  }
+  removedCard(cardObj) {
+    this.removeCardElement();
+    return this._hand.pop();
+  }
+  removeCardElement(cardDiv) {
+    this._element.removeChild(cardDiv);
   }
 }
 
