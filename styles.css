@@ -1,0 +1,123 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.red {
+  color: #f85050;
+}
+
+.black {
+  color: #272727;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 10vh;
+}
+
+.card {
+  font-size: 150px;
+  border: 2px solid #272727;
+  border-radius: 10px;
+  padding: 0;
+  background-color: white;
+}
+
+.card--main {
+  position: absolute;
+}
+
+.main {
+  display: -ms-grid;
+  display: grid;
+  gap: 10px;
+  height: 90vh;
+  -ms-grid-columns: 20vw, 60vw, 20vw;
+      grid-template-columns: 20vw, 60vw, 20vw;
+  -ms-grid-rows: 5vh, 30vh, 30vh, 10vh;
+      grid-template-rows: 5vh, 30vh, 30vh, 10vh;
+      grid-template-areas: "p1 board p2" "p1 board p2" "p1 board p2" "score score score";
+}
+
+.main .board {
+  width: 50vw;
+}
+
+.main .board__pile {
+  border: 2px solid black;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .board__pile h2 {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.main .player__cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.main .player__cards .card {
+  font-size: 100px;
+}
+
+.main #player_1 {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 1;
+  grid-area: p1;
+  border: 2px solid black;
+}
+
+.main #player_2 {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 3;
+  grid-area: p2;
+  border: 2px solid black;
+}
+
+.main #board {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 2;
+  grid-area: board;
+}
+
+.main #score_area {
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: score;
+  border: 2px solid black;
+}
+/*# sourceMappingURL=styles.css.map */

@@ -6,7 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>'Tens' - a card game for two playes</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="./app.js" async defer></script>
+    <script src="./app.js" type="module" async defer></script>
   </head>
-  <body></body>
+  <body>
+    <header class="header"><h1>Game name</h1></header>
+    <main class="main">
+      <section class="player" id="player_1">
+        <h2 class="player__title">Player 1</h2>
+        <div class="player__cards" id="player_1_cards">
+          <!-- This contains the players current cards in hand -->
+        </div>
+        <div id="player_1_played">
+          <!-- This contains combinations of cards LAID by the player -->
+        </div>
+      </section>
+      <section class="player" id="player_2">
+        <h2 class="player__title">Player 2</h2>
+        <div class="player__cards" id="player_2_cards">
+          <!-- This contains the players current cards in hand -->
+        </div>
+        <div id="player_2_played">
+          <!-- This contains combinations of cards LAID by the player -->
+        </div>
+      </section>
+      <section class="board" id="board">
+        <div class="board__pile" id="main_pile">
+          <!-- This contains all of the cards left after players cards are dealt or discarded -->
+          <h2>Main Pile</h2>
+        </div>
+        <div class="board__pile" id="discard_pile">
+          <!-- This contains cards discarded either from the players hands or from the main pile -->
+          <h2>Discard Pile</h2>
+        </div>
+      </section>
+      <section id="score_area">
+        <h2>Scores</h2>
+        <div class="round">
+          <!-- This contains information about the round - which round, and the players running total score -->
+        </div>
+      </section>
+    </main>
+  </body>
 </html>

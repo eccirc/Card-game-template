@@ -1,0 +1,86 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+$border: 2px solid black;
+
+.red {
+  color: rgb(248, 80, 80);
+}
+.black {
+  color: #272727;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+.card {
+  font-size: 150px;
+  border: 2px solid #272727;
+  border-radius: 10px;
+  padding: 0;
+  background-color: white;
+}
+.card--main {
+  position: absolute;
+}
+
+.main {
+  display: grid;
+  gap: 10px;
+  height: 90vh;
+  grid-template-columns: 20vw, 60vw, 20vw;
+  grid-template-rows: 5vh, 30vh, 30vh, 10vh;
+  grid-template-areas:
+    "p1 board p2"
+    "p1 board p2"
+    "p1 board p2"
+    "score score score";
+  .board {
+    width: 50vw;
+    &__pile {
+      border: $border;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      h2 {
+        align-self: flex-start;
+      }
+    }
+  }
+  .player {
+    &__cards {
+      display: flex;
+      flex-wrap: wrap;
+      .card {
+        font-size: 100px;
+      }
+    }
+  }
+
+  #player_1 {
+    grid-area: p1;
+    border: $border;
+  }
+  #player_2 {
+    grid-area: p2;
+    border: $border;
+  }
+  #board {
+    display: flex;
+    gap: 10px;
+    grid-area: board;
+  }
+  #score_area {
+    grid-area: score;
+    border: $border;
+  }
+}
