@@ -62,17 +62,14 @@ class Game {
     this.populateShuffledDeck(this._deck.cardsShuffled());
     this.dealCards(10, this._players.player1.hand);
     this.dealCards(10, this._players.player2.hand);
-    this.addMainPileListener();
-    this.addDiscardPileListner();
-    this.addPlayerPileListener(
-      this._pickupArea.discardPile,
-      this._players.player1.hand
-    );
+    this._players.player1_actions.message.innerHTML =
+      "choose a card from the main pile or the discard pile";
+    this.addMainPileListner();
     this.addPlayerPileListener(
       this._pickupArea.discardPile,
       this._players.player2.hand
     );
-    console.log(this._players.player1);
+    //console.log(this._players.player1);
   }
 
   creatCardDownDiv(index) {
@@ -96,11 +93,23 @@ class Game {
       deckTo.addCard(this.addCardToDeck(this._pickupArea.mainDeck.hand));
     }
   }
-  addMainPileListener() {
-    this._pickupArea.mainDeck.element.addEventListener("click", (event) => {
-      this.gameTurnChecker("mainDeck");
-    });
+
+  addMainPileListner() {
+    this._pickupArea.mainDeck.element.addEventListener(
+      "click",
+      this.pileListener
+    );
   }
+
+  pileListener = () => {
+    this._players.player1.hand.addCard(
+      this.addCardToDeck(this._pickupArea.mainDeck.hand)
+    );
+    this._players.player1_actions.pickedUp = true;
+    console.log(this._players.player1_actions);
+    this.gameTurnChecker();
+  };
+
   addDiscardPileListner() {
     this._pickupArea.discardPile.element.addEventListener("click", (event) => {
       this.gameTurnChecker("discardPile");
@@ -120,17 +129,19 @@ class Game {
     });
   }
 
-  gameTurnChecker(fromPile) {
-    if (this._turn % 2 === 0) {
-      this._players.player1.hand.addCard(
-        this.addCardToDeck(this._pickupArea[fromPile].hand)
+  gameTurnChecker() {
+    if (this._players.player1_actions.pickedUp) {
+      this._players.player1_actions.message.innerHTML =
+        "select a card to discard or lay down";
+      this._pickupArea.mainDeck.element.removeEventListener(
+        "click",
+        this.pileListener
       );
-    } else {
-      this._players.player2.hand.addCard(
-        this.addCardToDeck(this._pickupArea[fromPile].hand)
+      this.addPlayerPileListener(
+        this._pickupArea.discardPile,
+        this._players.player1.hand
       );
     }
-    this._turn++;
   }
 
   addCardToDeck(deckFrom) {
@@ -150,6 +161,30 @@ class Actions {
     this._discardButton = discardBtn;
     this._playBtn = playBtn;
     this._message = message;
+    this._pickedUp = false;
+    this._discard = false;
+    this._layDown = false;
+  }
+  get message() {
+    return this._message;
+  }
+  get pickedUp() {
+    return this._pickedUp;
+  }
+  set pickedUp(has) {
+    this._pickedUp = has;
+  }
+  get discard() {
+    return this._discard;
+  }
+  set discard(selected) {
+    this._discard = selected;
+  }
+  get layDown() {
+    return this._layDown;
+  }
+  set layDown(selected) {
+    this._layDown = selected;
   }
 }
 
