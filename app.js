@@ -1,5 +1,5 @@
 /*
-SEVENTH ITERATION - CLASSES OVERRHAUL - EVERYTHING IS AN OBJECT
+EIGTH ITERATION - GAME LOGIC - LETS GO
  
 Classes: 
 
@@ -29,6 +29,8 @@ Events/ To Do:
 
 */
 import { cards } from "./cards.mjs";
+import { RummyRulesBasic as rules } from "./handChecker.mjs";
+import { Player } from "./player.mjs";
 
 class Game {
   constructor() {
