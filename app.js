@@ -1,5 +1,5 @@
 /*
-EIGTH ITERATION - GAME LOGIC - LETS GO
+NINTH ITERATION - GAME LOGIC - LETS GO
  
 Classes: 
 
@@ -7,25 +7,6 @@ Classes:
 (- One board (class) 1)
 (- deck (class) 4)
 - Very basic game logic
-
-
-Events/ To Do:
-(- player clicks on board 'deck' and adds one 'card' to their hand (Player class method ?) 1)
-(- then switch to the next player (Game class method ? ) 1)
-(- add an element property to the player class to hold corresponding HTML element 2)
-(- display the each players hand in their respective area 2)
-(- create styles in SCSS to more clearly de-lineate areas and components 3 )
-    - components for areas
-    - components for cards
-(- create a card deck object to be used with the Game class 3)
-(- create a deck class which takes the cards object as a parameter 4)
-(- create a class method 'shuffle' within deck to return a new randomised array 4)
-(- make a start game function in Game class which shuffles the cards and adds the cards as new divs to the main pile 5)
-(- deal 10 cards to each player - deducted from the main pile)
-(- both main deck and discard pile need to be objects - use the same logic as the (previously) Player class and duplicate this 6)
-(- add event listeners for each players card deck to let them move cards around 7)
-
-
 
 */
 import { cards } from "./cards.mjs";
@@ -37,16 +18,35 @@ class Game {
     this._deck = new Deck(cards);
     this._shuffled = [];
     this._turn = 0;
+    this._rules = new rules();
     this._players = {
-      player1: new cardsHeld(
-        "Player 1",
-        document.getElementById("player_1_cards")
+      player1: new Player(
+        new cardsHeld("Player_1", document.getElementById("player_1_cards")),
+        new cardsHeld(
+          "Player_1_Played",
+          document.getElementById("player_1_played")
+        ),
+        true
       ),
-      player2: new cardsHeld(
-        "Player 2",
-        document.getElementById("player_2_cards")
+      player2: new Player(
+        new cardsHeld("Player_2", document.getElementById("player_2_cards")),
+        new cardsHeld(
+          "Player_2_Played",
+          document.getElementById("player_2_played")
+        ),
+        false
       ),
     };
+    // this._players = {
+    //   player1: new cardsHeld(
+    //     "Player 1",
+    //     document.getElementById("player_1_cards")
+    //   ),
+    //   player2: new cardsHeld(
+    //     "Player 2",
+    //     document.getElementById("player_2_cards")
+    //   ),
+    // };
     this._pickupArea = {
       mainDeck: new cardsHeld(
         "main deck",
@@ -60,21 +60,19 @@ class Game {
   }
   startGame() {
     this.populateShuffledDeck(this._deck.cardsShuffled());
-    this.dealCards(10, this._players, "player1");
-    this.dealCards(10, this._players, "player2");
+    this.dealCards(10, this._players.player1.hand);
+    this.dealCards(10, this._players.player2.hand);
     this.addMainPileListener();
     this.addDiscardPileListner();
     this.addPlayerPileListener(
-      this._pickupArea,
-      "discardPile",
-      this._players.player1
+      this._pickupArea.discardPile,
+      this._players.player1.hand
     );
     this.addPlayerPileListener(
-      this._pickupArea,
-      "discardPile",
-      this._players.player2
+      this._pickupArea.discardPile,
+      this._players.player2.hand
     );
-    //console.log(this._players.player1);
+    console.log(this._players.player1);
   }
 
   creatCardDownDiv(index) {
@@ -93,9 +91,9 @@ class Game {
       this._pickupArea.mainDeck.addCard(newObj);
     });
   }
-  dealCards(amount, area, deck) {
+  dealCards(amount, deckTo) {
     for (let i = 0; i < amount; i++) {
-      this.addCardToDeck(area, deck, this._pickupArea.mainDeck.hand);
+      deckTo.addCard(this.addCardToDeck(this._pickupArea.mainDeck.hand));
     }
   }
   addMainPileListener() {
@@ -108,7 +106,7 @@ class Game {
       this.gameTurnChecker("discardPile");
     });
   }
-  addPlayerPileListener(area, deckTo, deckFrom) {
+  addPlayerPileListener(deckTo, deckFrom) {
     deckFrom.element.addEventListener("click", (event) => {
       const cardObj = deckFrom.hand.filter(
         (item) => item.div.innerHTML === event.target.innerHTML
@@ -118,28 +116,32 @@ class Game {
       cardObj.div.style.transform = `translateX(-${offset}px) translateY(-${offset}px)`;
       deckFrom.hand.splice(deckFrom.hand.indexOf(cardObj), 1);
       deckFrom.element.removeChild(cardObj.div);
-      area[deckTo].addCard(cardObj);
+      deckTo.addCard(cardObj);
     });
   }
 
-  gameTurnChecker(pile) {
+  gameTurnChecker(fromPile) {
     if (this._turn % 2 === 0) {
-      this.addCardToDeck(this._players, "player1", this._pickupArea[pile].hand);
+      this._players.player1.hand.addCard(
+        this.addCardToDeck(this._pickupArea[fromPile].hand)
+      );
     } else {
-      this.addCardToDeck(this._players, "player2", this._pickupArea[pile].hand);
+      this._players.player2.hand.addCard(
+        this.addCardToDeck(this._pickupArea[fromPile].hand)
+      );
     }
     this._turn++;
   }
 
-  addCardToDeck(area, deckTo, deckFrom) {
-    const cardObj = deckFrom.pop(); //This needs to be "slice"  and splice in order to remove it in order to target the correct element of the array when clicked
-    //const cardObj = deckFrom.slice(deckFrom)
+  addCardToDeck(deckFrom) {
+    const cardObj = deckFrom.pop();
     const element = cardObj.div;
     element.style.transform = "translateX(0) translateY(0)";
     element.innerHTML = cardObj.symbol;
     element.classList.add(cardObj.colour);
     element.classList.remove("card--main");
-    area[deckTo].addCard(cardObj);
+    return cardObj;
+    //[deckTo].addCard(cardObj);
   }
 }
 

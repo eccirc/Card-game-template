@@ -1,5 +1,5 @@
 export class Player {
-  constructor(handArr, playedArr, tur) {
+  constructor(handArr, playedArr, turn) {
     this._hand = handArr;
     this._played = playedArr;
     this._tempHand = [];
