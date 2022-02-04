@@ -45,9 +45,9 @@ const checkIfName = (arr, val) => {
   return !check.includes(false);
 };
 
-const checkIfSeq = (arr) => {
+const checkIfSeq = (arr, value) => {
   const copy = [...arr];
-  copy.sort((a, b) => a.value - b.value);
+  copy.sort((a, b) => a[value] - b[value]);
   for (let i = 1; i < copy.length; i++) {
     if (copy[i].value === copy[i + 1].value - 1) {
       return true;
@@ -62,7 +62,48 @@ const checkIsValidSet = (arr) => {
 };
 
 const checkIsValidRun = (arr) => {
-  return checkIfThree(arr) && checkIfName(arr, "suit") && checkIfSeq(arr);
+  return (
+    checkIfThree(arr) && checkIfName(arr, "suit") && checkIfSeq(arr, "value")
+  );
 };
 
 console.log(checkIsValidRun(checkArr));
+
+class rummyRulesBasic {
+  constructor() {
+    this._validHand = checkIsValidRun() || checkIsValidSet();
+  }
+
+  get validHand() {
+    return this._validHand;
+  }
+
+  checkIfThree(arr) {
+    return arr.length >= 3;
+  }
+  checkIfValMatch(arr, val) {
+    const check = arr.map((item) => {
+      return item[val] === arr[0][val];
+    });
+    return !check.includes(false);
+  }
+  checkIfSeq(arr, value) {
+    const copy = [...arr];
+    copy.sort((a, b) => a[value] - b[value]);
+    for (let i = 1; i < copy.length; i++) {
+      if (copy[i].value === copy[i + 1].value - 1) {
+        return true;
+      } else return false;
+    }
+  }
+  checkIsValidSet(arr, value) {
+    return checkIfThree(arr) && checkIfName(arr, value);
+  }
+  checkIsValidRun(arr, valueName, valueSeq) {
+    return (
+      checkIfThree(arr) &&
+      checkIfName(arr, valueName) &&
+      checkIfSeq(arr, valueSeq)
+    );
+  }
+}

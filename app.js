@@ -29,6 +29,7 @@ Events/ To Do:
 
 */
 import { cards } from "./cards.mjs";
+import { handChecker } from "./handChecker.mjs";
 
 class Game {
   constructor() {
