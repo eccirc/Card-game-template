@@ -5,6 +5,7 @@ export class Player {
     this._tempHand = [];
     this._score = 0;
     this._turn = turn;
+    this._hasWon = null;
   }
   get hand() {
     return this._hand;

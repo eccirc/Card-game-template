@@ -37,16 +37,6 @@ class Game {
         false
       ),
     };
-    // this._players = {
-    //   player1: new cardsHeld(
-    //     "Player 1",
-    //     document.getElementById("player_1_cards")
-    //   ),
-    //   player2: new cardsHeld(
-    //     "Player 2",
-    //     document.getElementById("player_2_cards")
-    //   ),
-    // };
     this._pickupArea = {
       mainDeck: new cardsHeld(
         "main deck",
