@@ -1,4 +1,4 @@
-class Player {
+export class Player {
   constructor(handArr, playedArr, tur) {
     this._hand = handArr;
     this._played = playedArr;

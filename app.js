@@ -29,7 +29,8 @@ Events/ To Do:
 
 */
 import { cards } from "./cards.mjs";
-import { handChecker } from "./handChecker.mjs";
+import { RummyRulesBasic as rules } from "./handChecker.mjs";
+import { Player } from "./player.mjs";
 
 class Game {
   constructor() {
