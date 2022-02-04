@@ -20,6 +20,11 @@ class Game {
     this._turn = 0;
     this._rules = new rules();
     this._players = {
+      player1_actions: new Actions(
+        document.getElementById("player_1_discard"),
+        document.getElementById("player_1_play"),
+        document.getElementById("player_1_message")
+      ),
       player1: new Player(
         new cardsHeld("Player_1", document.getElementById("player_1_cards")),
         new cardsHeld(
@@ -27,6 +32,11 @@ class Game {
           document.getElementById("player_1_played")
         ),
         true
+      ),
+      player2_actions: new Actions(
+        document.getElementById("player_2_discard"),
+        document.getElementById("player_2_play"),
+        document.getElementById("player_2_message")
       ),
       player2: new Player(
         new cardsHeld("Player_2", document.getElementById("player_2_cards")),
@@ -132,6 +142,14 @@ class Game {
     element.classList.remove("card--main");
     return cardObj;
     //[deckTo].addCard(cardObj);
+  }
+}
+
+class Actions {
+  constructor(discardBtn, playBtn, message) {
+    this._discardButton = discardBtn;
+    this._playBtn = playBtn;
+    this._message = message;
   }
 }
 
