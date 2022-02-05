@@ -1,11 +1,15 @@
 export class Player {
-  constructor(handArr, playedArr, turn) {
+  constructor(handArr, playedArr, buttonDiv, messageDiv) {
     this._hand = handArr;
     this._played = playedArr;
     this._tempHand = [];
     this._score = 0;
-    this._turn = turn;
     this._hasWon = null;
+    this._actions = {
+      buttonDiv: buttonDiv,
+      messageDiv: messageDiv,
+      actionToggle: null,
+    };
   }
   get hand() {
     return this._hand;
@@ -22,6 +26,12 @@ export class Player {
   get turn() {
     return this._turn;
   }
+  get actions() {
+    return this._actions;
+  }
+  // set action() {
+  //   this._actions = toggle;
+  // }
   set score(amount) {
     this._score = amount;
   }
