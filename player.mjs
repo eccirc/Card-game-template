@@ -5,11 +5,6 @@ export class Player {
     this._tempHand = [];
     this._score = 0;
     this._hasWon = null;
-    this._actions = {
-      buttonDiv: buttonDiv,
-      messageDiv: messageDiv,
-      actionToggle: null,
-    };
   }
   get hand() {
     return this._hand;

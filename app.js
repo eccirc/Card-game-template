@@ -39,7 +39,7 @@ class Game {
         document.getElementById("player_2_message")
       ),
     };
-    this._pickupArea = {
+    this._playArea = {
       mainDeck: new cardsHeld(
         "main deck",
         document.getElementById("main_pile")
@@ -55,13 +55,7 @@ class Game {
     this.populateShuffledDeck(this._deck.cardsShuffled());
     this.dealCards(10, this._players.player1.hand);
     this.dealCards(10, this._players.player2.hand);
-    this.addMainPileListner();
     this.gameTurnChecker();
-    // this.addPlayerPileListener(
-    //   this._pickupArea.discardPile,
-    //   this._players.player2.hand
-    // );
-    //console.log(this._players.player1);
   }
 
   creatCardDownDiv(index) {
@@ -77,52 +71,32 @@ class Game {
     array.forEach((item, index) => {
       const newObj = { ...item };
       newObj.div = this.creatCardDownDiv(index);
-      this._pickupArea.mainDeck.addCard(newObj);
+      this._playArea.mainDeck.addCard(newObj);
     });
   }
   dealCards(amount, deckTo) {
     for (let i = 0; i < amount; i++) {
-      deckTo.addCard(this.addCardToDeck(this._pickupArea.mainDeck.hand));
+      deckTo.addCard(this.addCardToDeck(this._playArea.mainDeck.hand));
     }
   }
-  addMainPileListner() {
-    this._pickupArea.mainDeck.element.addEventListener(
-      "click",
-      this.pileListener
-    );
-  }
-  pileListener = () => {
-    this._curentPlayer.hand.addCard(
-      this.addCardToDeck(this._pickupArea.mainDeck.hand)
-    );
-    this.addCurrentButtonToggle(this._curentPlayer);
-    this.gameTurnChecker();
-    this.gameSequence(this._curentPlayer);
-  };
-  addDiscardPileListner() {
-    this._pickupArea.discardPile.element.addEventListener("click", (event) => {
-      this.gameTurnChecker("discardPile");
-    });
-  }
-  addPlayerPileListener(deckTo, deckFrom, remove) {
+
+  addPlayerPileListener(deckTo, deckFrom) {
     deckFrom.element.addEventListener(
       "click",
       (event) => {
         const cardObj = deckFrom.hand.filter(
           (item) => item.div.innerHTML === event.target.innerHTML
         )[0];
-        cardObj.div.classList.add(`card--main`);
+        //cardObj.div.classList.add(`card--main`);
         const offset = deckFrom.hand.length;
         cardObj.div.style.transform = `translateX(-${offset}px) translateY(-${offset}px)`;
         deckFrom.hand.splice(deckFrom.hand.indexOf(cardObj), 1);
         deckFrom.element.removeChild(cardObj.div);
         deckTo.addCard(cardObj);
-        if (this._curentPlayer.actions.actionToggle) {
-          this._turn++;
-          this.gameTurnChecker();
-        }
+        this._turn++;
+        this.gameTurnChecker();
       },
-      { once: remove }
+      { once: true }
     );
   }
 
@@ -130,42 +104,10 @@ class Game {
     if (this._turn % 2 === 0) {
       this._curentPlayer = this._players.player1;
     } else this._curentPlayer = this._players.player2;
-    this._curentPlayer.actions.buttonDiv.innerHTML = "Discard";
-    this._curentPlayer.actions.messageDiv.innerHTML =
-      "Choose a card from the main or the discard pile";
-  }
-
-  addCurrentButtonToggle(player) {
-    player.actions.buttonDiv.addEventListener("click", () =>
-      this.buttonToggle(player)
+    this.addPlayerPileListener(
+      this._playArea.discardPile,
+      this._curentPlayer.hand
     );
-  }
-  buttonToggle(player) {
-    // player.actions.actionToggle = !player.actions.actionToggle;
-    if (player.actions.actionToggle) {
-      player.actions.buttonDiv.innerHTML = "Discard";
-      player.actions.actionToggle = false;
-      player.actions.messageDiv.innerHTML = "Choose one card to throw away";
-      this.addPlayerPileListener(
-        this._pickupArea.discardPile,
-        this._curentPlayer.hand,
-        true
-      );
-    } else {
-      player.actions.buttonDiv.innerHTML = "Lay hand";
-      // player.actions.actionToggle = true;
-      player.actions.messageDiv.innerHTML =
-        "Choose three or more cards to lay down as a run or set";
-      this.addPlayerPileListener(
-        this._curentPlayer.played,
-        this._curentPlayer.hand,
-        false
-      );
-    }
-  }
-
-  gameSequence(player) {
-    player.actions.messageDiv.innerHTML = "";
   }
 
   addCardToDeck(deckFrom) {
