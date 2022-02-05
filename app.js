@@ -88,9 +88,9 @@ class Game {
         const cardObj = deckFrom.hand.filter(
           (item) => item.div.innerHTML === event.target.innerHTML
         )[0];
-        const suitDisplay = document.getElementById("played_suit");
-        suitDisplay.innerHTML = `Played Suit: ${cardObj.suit} ${cardObj.symbol}`;
-        this._currentSuit = cardObj.suit;
+        // const suitDisplay = document.getElementById("played_suit");
+        // suitDisplay.innerHTML = `Played Suit: ${cardObj.suit} ${cardObj.symbol}`;
+        // this._currentSuit = cardObj.suit;
         deckFrom.hand.splice(deckFrom.hand.indexOf(cardObj), 1);
         deckFrom.element.removeChild(cardObj.div);
         deckTo.addCard(cardObj);
