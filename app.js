@@ -18,6 +18,7 @@ class Game {
     this._deck = new Deck(cards);
     this._shuffled = [];
     this._turn = 0;
+    this._currentSuit = null;
     this._rules = new rules();
     this._players = {
       player1: new Player(
@@ -87,9 +88,9 @@ class Game {
         const cardObj = deckFrom.hand.filter(
           (item) => item.div.innerHTML === event.target.innerHTML
         )[0];
-        //cardObj.div.classList.add(`card--main`);
-        const offset = deckFrom.hand.length;
-        cardObj.div.style.transform = `translateX(-${offset}px) translateY(-${offset}px)`;
+        const suitDisplay = document.getElementById("played_suit");
+        suitDisplay.innerHTML = `Played Suit: ${cardObj.suit} ${cardObj.symbol}`;
+        this._currentSuit = cardObj.suit;
         deckFrom.hand.splice(deckFrom.hand.indexOf(cardObj), 1);
         deckFrom.element.removeChild(cardObj.div);
         deckTo.addCard(cardObj);
