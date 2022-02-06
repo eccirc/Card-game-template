@@ -1,16 +1,4 @@
-/*
-NINTH ITERATION - GAME LOGIC - LETS GO
- 
-Classes: 
-
-(- Two players (class) 1)
-(- One board (class) 1)
-(- deck (class) 4)
-- Very basic game logic
-
-*/
 import { cards } from "./cards.mjs";
-import { RummyRulesBasic as rules } from "./handChecker.mjs";
 import { Player } from "./player.mjs";
 import { Deck } from "./deck.mjs";
 import { cardsHeld as cardPile } from "./heldCards.mjs";
@@ -22,7 +10,6 @@ class Game {
     this._turn = 0;
     this._currentSuit = null;
     this._gameDisplay = document.getElementById("game_display");
-    this._rules = new rules();
     this._players = {
       player1: new Player(
         new cardPile("Player_1", document.getElementById("player_1_cards")),
@@ -63,8 +50,7 @@ class Game {
 
   creatCardDownDiv(index) {
     const element = document.createElement("div");
-    element.classList.add(`card`);
-    element.classList.add(`card--main`);
+    element.classList.add("card", "card--main", "black");
     element.innerHTML = "🂠";
     //element.style.transform = `translateX(-${index}px) translateY(-${index}px)`;
     return element;
@@ -99,9 +85,7 @@ class Game {
       this._currentSuit = cardObj.suit;
     }
     if (
-      (!deckFrom.leading &&
-        cardObj.suit !== this._currentSuit &&
-        deckFrom.hand) ||
+      (!deckFrom.leading && cardObj.suit !== this._currentSuit) ||
       !this.handChecker(deckFrom.hand, this._currentSuit)
     ) {
       console.log("oi");
@@ -130,6 +114,7 @@ class Game {
 
     if (this._turn % 2 === 0) {
       this._curentPlayer = this._players.player1;
+      this._curentPlayer.hand.element.classList.innerHTML = "";
     } else this._curentPlayer = this._players.player2;
 
     this.addPlayerPileListener(this._curentPlayer);
@@ -176,6 +161,7 @@ class Game {
     const element = cardObj.div;
     element.style.transform = "translateX(0) translateY(0)";
     element.innerHTML = cardObj.symbol;
+    element.classList.remove("card--main", "black");
     element.classList.add(cardObj.colour);
     element.classList.remove("card--main");
     return cardObj;
