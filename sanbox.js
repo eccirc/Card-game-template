@@ -26,84 +26,11 @@ const checkArr2 = [
   { symbol: "🂢", suit: "diamonds", value: 2, colour: "black", name: "two" },
 ];
 
-/* RUN conditions (sequence)
- - length >= 3
- - same suit
- - sequential
-
- SET conditions
- - length > 3
- - same name
-*/
-const checkIfThree = (arr) => {
-  return arr.length >= 3;
-};
-const checkIfName = (arr, val) => {
-  const check = arr.map((item) => {
-    return item[val] === arr[0][val];
+handChecker = (playerHand, suit) => {
+  const testArr = playerHand.map((item) => {
+    return item.suit === suit;
   });
-  return !check.includes(false);
+  return testArr.includes(true);
 };
 
-const checkIfSeq = (arr, value) => {
-  const copy = [...arr];
-  copy.sort((a, b) => a[value] - b[value]);
-  for (let i = 1; i < copy.length; i++) {
-    if (copy[i].value === copy[i + 1].value - 1) {
-      return true;
-    } else return false;
-  }
-};
-
-//console.log(checkIfSeq(checkArr));
-
-const checkIsValidSet = (arr) => {
-  return checkIfThree(arr) && checkIfName(arr, "name");
-};
-
-const checkIsValidRun = (arr) => {
-  return (
-    checkIfThree(arr) && checkIfName(arr, "suit") && checkIfSeq(arr, "value")
-  );
-};
-
-console.log(checkIsValidRun(checkArr));
-
-class rummyRulesBasic {
-  constructor() {
-    this._validHand = checkIsValidRun() || checkIsValidSet();
-  }
-
-  get validHand() {
-    return this._validHand;
-  }
-
-  checkIfThree(arr) {
-    return arr.length >= 3;
-  }
-  checkIfValMatch(arr, val) {
-    const check = arr.map((item) => {
-      return item[val] === arr[0][val];
-    });
-    return !check.includes(false);
-  }
-  checkIfSeq(arr, value) {
-    const copy = [...arr];
-    copy.sort((a, b) => a[value] - b[value]);
-    for (let i = 1; i < copy.length; i++) {
-      if (copy[i].value === copy[i + 1].value - 1) {
-        return true;
-      } else return false;
-    }
-  }
-  checkIsValidSet(arr, value) {
-    return checkIfThree(arr) && checkIfName(arr, value);
-  }
-  checkIsValidRun(arr, valueName, valueSeq) {
-    return (
-      checkIfThree(arr) &&
-      checkIfName(arr, valueName) &&
-      checkIfSeq(arr, valueSeq)
-    );
-  }
-}
+console.log(handChecker(checkArr2, "clubs"));

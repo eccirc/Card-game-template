@@ -4,7 +4,7 @@
   text-align: center;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
 body {
@@ -36,12 +36,13 @@ body {
 .card {
   font-size: 3.5rem;
   border-radius: 10px;
-  padding: 0;
   background-color: white;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  padding: 0.1rem;
+  margin: 0.1rem;
 }
 
 .card--main {
@@ -59,8 +60,12 @@ p {
 }
 
 h2 span {
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #a8dafb;
+}
+
+p {
+  font-size: 1.3rem;
 }
 
 header {
@@ -79,6 +84,7 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  gap: 10px;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
   -ms-grid-rows: (1fr)[6];
@@ -91,9 +97,9 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

@@ -13,21 +13,12 @@ class Game {
     this._players = {
       player1: new Player(
         new cardPile("Player_1", document.getElementById("player_1_cards")),
-        new cardPile(
-          "Player_1_Played",
-          document.getElementById("player_1_played")
-        ),
         document.getElementById("p1_score"),
         document.getElementById("player_1_message")
       ),
       player2: new Player(
         new cardPile("Player_2", document.getElementById("player_2_cards")),
-        new cardPile(
-          "Player_2_Played",
-          document.getElementById("player_2_played")
-        ),
         document.getElementById("p2_score"),
-
         document.getElementById("player_2_message")
       ),
     };
@@ -52,7 +43,6 @@ class Game {
     const element = document.createElement("div");
     element.classList.add("card", "card--main", "black");
     element.innerHTML = "🂠";
-    //element.style.transform = `translateX(-${index}px) translateY(-${index}px)`;
     return element;
   }
 
@@ -69,9 +59,10 @@ class Game {
     }
   }
   handChecker(playerHand, suit) {
-    return playerHand.hand.reduce((prev, next) => {
-      return prev && next !== suit;
+    const testArr = playerHand.hand.hand.map((item) => {
+      return item.suit === suit;
     });
+    return testArr.includes(true);
   }
 
   innerFunction(deckFrom, event) {
@@ -85,10 +76,10 @@ class Game {
       this._currentSuit = cardObj.suit;
     }
     if (
-      (!deckFrom.leading && cardObj.suit !== this._currentSuit) ||
-      !this.handChecker(deckFrom.hand, this._currentSuit)
+      !deckFrom.leading &&
+      cardObj.suit !== this._currentSuit &&
+      this.handChecker(deckFrom, this._currentSuit)
     ) {
-      console.log("oi");
       deckFrom.messageDiv.innerHTML = "Select a card of the same suit";
     } else {
       deckFrom.messageDiv.innerHTML = "";
@@ -111,34 +102,30 @@ class Game {
     const message = "Your turn, select a card to play";
     const player1 = this._players.player1;
     const player2 = this._players.player2;
+    let current = this._curentPlayer;
 
     if (this._turn % 2 === 0) {
-      this._curentPlayer = this._players.player1;
-      this._curentPlayer.hand.element.classList.innerHTML = "";
-    } else this._curentPlayer = this._players.player2;
+      current = this._players.player1;
+      current.hand.element.classList.innerHTML = "";
+    } else current = this._players.player2;
 
-    this.addPlayerPileListener(this._curentPlayer);
+    this.addPlayerPileListener(current);
 
     if (this._players.player1.cardPlayed && this._players.player2.cardPlayed) {
-      if (
-        this._players.player1.cardPlayed.order >
-        this._players.player2.cardPlayed.order
-      ) {
+      if (player1.cardPlayed.order > player2.cardPlayed.order) {
         console.log("player 1 wins");
         this._gameDisplay.innerHTML = "Player 1 takes";
         this._players.player1.score++;
         this._players.player1.scoreDiv.innerHTML = `Tricks this round: ${this._players.player1.score}`;
         this._players.player2.leading = false;
         this._players.player1.leading = true;
-        this._turn++;
-      } else {
+      } else if (player2.cardPlayed.order > player1.cardPlayed.order) {
         console.log("player 2 wins");
         this._gameDisplay.innerHTML = "Player 2 takes";
         this._players.player2.score++;
         this._players.player2.scoreDiv.innerHTML = `Tricks this round: ${this._players.player2.score}`;
         this._players.player1.leading = false;
         this._players.player2.leading = true;
-        this._turn++;
       }
       setTimeout(() => this.resetCards(), 2000);
     }
@@ -149,6 +136,13 @@ class Game {
       player2.messageDiv.innerHTML = message;
       player1.messageDiv.innerHTML = "";
     }
+  }
+  checkIsSuitMatch() {
+    const playersArr = Object.entries(this._players);
+    const defendingPlayer = playersArr.filter((player) => {
+      if (!player[1].leading) return player;
+    });
+    return defendingPlayer[0][1].cardPlayed.suit === this._currentSuit;
   }
   resetCards() {
     this._playArea.discardPile.element.innerHTML = "";

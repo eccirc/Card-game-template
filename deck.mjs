@@ -6,6 +6,7 @@ export class Deck {
     return this._cards;
   }
   cardsShuffled() {
+    //FISHER-YATES SHUFFLE
     const shuffledDeck = [...this._cards];
     for (let i = 0; i < this._cards.length; i++) {
       const rnd = (Math.random() * i) | 0;
