@@ -6,8 +6,6 @@
   font-family: "Courier New", Courier, monospace;
 }
 
-$border: 2px solid black;
-
 .red {
   color: rgb(248, 80, 80);
 }
@@ -34,6 +32,10 @@ $border: 2px solid black;
   position: absolute;
 }
 
+h2 {
+  padding: 2rem;
+}
+
 .main {
   display: grid;
   height: 90vh;
@@ -45,8 +47,8 @@ $border: 2px solid black;
   grid-template-areas:
     "p1 p1 p1"
     "suit suit suit"
-    "board board board"
-    "board board board"
+    ". board ."
+    ". board ."
     "p2 p2 p2"
     "score score score";
   .board {
@@ -62,9 +64,6 @@ $border: 2px solid black;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      // .card {
-      //   font-size: 100px;
-      // }
     }
   }
   #score_area {
@@ -94,3 +93,7 @@ $border: 2px solid black;
     grid-area: score;
   }
 }
+
+// @media screen and{
+
+// }

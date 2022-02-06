@@ -51,15 +51,13 @@ class Game {
         document.getElementById("played_pile")
       ),
     };
-    this._curentPlayer = this._players.player1;
-    this._opposingPlayer = this._players.player2;
+    this._curentPlayer = null;
   }
   startGame() {
     this.populateShuffledDeck(this._deck.cardsShuffled());
     this._players.player1.leading = true;
     this.dealCards(10, this._players.player1.hand);
     this.dealCards(10, this._players.player2.hand);
-    console.log(this._gameDisplay);
     this.gameTurnChecker();
   }
 
@@ -90,41 +88,6 @@ class Game {
     });
   }
 
-  // addPlayerPileListener(deckTo, deckFrom) {
-  //   let legalMove;
-  //   deckFrom.element.addEventListener(
-  //     "click",
-  //     (event) => {
-  //       const cardObj = deckFrom.hand.filter(
-  //         (item) => item.div.innerHTML === event.target.innerHTML
-  //       )[0];
-  //       if (this._curentPlayer.leading) {
-  //         this._gameDisplay.innerHTML = `Played Suit: ${cardObj.suit}`;
-  //         this._currentSuit = cardObj.suit;
-  //       }
-  //       if (
-  //         (cardObj.suit !== this._currentSuit && deckFrom.hand) ||
-  //         !this.handChecker(deckFrom.hand, this._currentSuit)
-  //       ) {
-  //         console.log("oi");
-  //         legalMove = false;
-  //         this._opposingPlayer.messageDiv.innerHTML =
-  //           "Select a card of the same suit";
-  //       } else {
-  //         legalMove = true;
-  //         deckFrom.hand.splice(deckFrom.hand.indexOf(cardObj), 1);
-  //         deckFrom.element.removeChild(cardObj.div);
-  //         deckTo.addCard(cardObj);
-  //         this._curentPlayer.cardPlayed = cardObj;
-  //         this._opposingPlayer.messageDiv.innerHTML = "";
-  //         this._turn++;
-  //         this.gameTurnChecker();
-  //       }
-  //     },
-  //     { once: legalMove }
-  //   );
-  // }
-
   innerFunction(deckFrom, event) {
     const cardObj = deckFrom.hand.hand.filter(
       (item) => item.div.innerHTML === event.target.innerHTML
@@ -144,6 +107,7 @@ class Game {
       console.log("oi");
       deckFrom.messageDiv.innerHTML = "Select a card of the same suit";
     } else {
+      deckFrom.messageDiv.innerHTML = "";
       deckFrom.hand.hand.splice(deckFrom.hand.hand.indexOf(cardObj), 1);
       deckFrom.hand.element.removeChild(cardObj.div);
       this._playArea.discardPile.addCard(cardObj);
@@ -160,7 +124,10 @@ class Game {
   }
 
   gameTurnChecker() {
-    //this.addPlayerPileListener(this._players.player1);
+    const message = "Your turn, select a card to play";
+    const player1 = this._players.player1;
+    const player2 = this._players.player2;
+
     if (this._turn % 2 === 0) {
       this._curentPlayer = this._players.player1;
     } else this._curentPlayer = this._players.player2;
@@ -176,13 +143,26 @@ class Game {
         this._gameDisplay.innerHTML = "Player 1 takes";
         this._players.player1.score++;
         this._players.player1.scoreDiv.innerHTML = `Tricks this round: ${this._players.player1.score}`;
+        this._players.player2.leading = false;
+        this._players.player1.leading = true;
+        this._turn++;
       } else {
         console.log("player 2 wins");
         this._gameDisplay.innerHTML = "Player 2 takes";
         this._players.player2.score++;
         this._players.player2.scoreDiv.innerHTML = `Tricks this round: ${this._players.player2.score}`;
+        this._players.player1.leading = false;
+        this._players.player2.leading = true;
+        this._turn++;
       }
       setTimeout(() => this.resetCards(), 2000);
+    }
+    if (player1.leading) {
+      player1.messageDiv.innerHTML = message;
+      player2.messageDiv.innerHTML = "";
+    } else if (player2.leading) {
+      player2.messageDiv.innerHTML = message;
+      player1.messageDiv.innerHTML = "";
     }
   }
   resetCards() {
