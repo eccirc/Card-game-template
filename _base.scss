@@ -28,6 +28,7 @@ $border: 2px solid black;
   border-radius: 10px;
   padding: 0;
   background-color: white;
+  user-select: none;
 }
 .card--main {
   position: absolute;
