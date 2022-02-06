@@ -1,11 +1,12 @@
 export class Player {
-  constructor(handArr, playedArr, messageDiv) {
+  constructor(handArr, playedArr, scoreDiv, messageDiv) {
     this._hand = handArr;
     this._played = playedArr;
     this._cardPlayed = null;
     this._score = 0;
     this._hasWon = null;
     this._leading = false;
+    this._scoreDiv = scoreDiv;
     this._messageDiv = messageDiv;
   }
   get hand() {
@@ -20,6 +21,9 @@ export class Player {
   get leading() {
     return this._leading;
   }
+  get scoreDiv() {
+    return this._scoreDiv;
+  }
   get messageDiv() {
     return this._messageDiv;
   }
@@ -32,6 +36,7 @@ export class Player {
   set leading(set) {
     this._leading = set;
   }
+
   set score(amount) {
     this._score = amount;
   }

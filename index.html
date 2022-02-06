@@ -11,16 +11,22 @@
   <body>
     <header class="header"><h1>Trumps</h1></header>
     <main class="main">
-      <h2 id="played_suit">Played suit:</h2>
+      <h2 id="game_display">Played suit:</h2>
       <section class="player" id="player_1">
-        <h2 class="player__title">Player 1</h2>
+        <h2 class="player__title">
+          Player 1 <br />
+          <span id="p1_score"></span>
+        </h2>
         <div class="player__cards" id="player_1_cards">
           <!-- This contains the players current cards in hand -->
         </div>
         <p id="player_1_message"></p>
       </section>
       <section class="player" id="player_2">
-        <h2 class="player__title">Player 2</h2>
+        <h2 class="player__title">
+          Player 2 <br />
+          <span id="p2_score"></span>
+        </h2>
         <div class="player__cards" id="player_2_cards">
           <!-- This contains the players current cards in hand -->
         </div>

@@ -21,6 +21,7 @@ class Game {
     this._shuffled = [];
     this._turn = 0;
     this._currentSuit = null;
+    this._gameDisplay = document.getElementById("game_display");
     this._rules = new rules();
     this._players = {
       player1: new Player(
@@ -29,6 +30,7 @@ class Game {
           "Player_1_Played",
           document.getElementById("player_1_played")
         ),
+        document.getElementById("p1_score"),
         document.getElementById("player_1_message")
       ),
       player2: new Player(
@@ -37,6 +39,8 @@ class Game {
           "Player_2_Played",
           document.getElementById("player_2_played")
         ),
+        document.getElementById("p2_score"),
+
         document.getElementById("player_2_message")
       ),
     };
@@ -55,9 +59,8 @@ class Game {
     this._players.player1.leading = true;
     this.dealCards(10, this._players.player1.hand);
     this.dealCards(10, this._players.player2.hand);
+    console.log(this._gameDisplay);
     this.gameTurnChecker();
-
-    //console.log(this._curentPlayer);
   }
 
   creatCardDownDiv(index) {
@@ -81,11 +84,11 @@ class Game {
       deckTo.addCard(this.addCardToDeck(this._playArea.mainDeck.hand));
     }
   }
-  // handChecker(playerHand, suit) {
-  //   return playerHand.reduce((prev, next) => {
-  //     return prev && next !== suit;
-  //   });
-  // }
+  handChecker(playerHand, suit) {
+    return playerHand.reduce((prev, next) => {
+      return prev && next !== suit;
+    });
+  }
 
   addPlayerPileListener(deckTo, deckFrom) {
     let legalMove;
@@ -96,14 +99,12 @@ class Game {
           (item) => item.div.innerHTML === event.target.innerHTML
         )[0];
         if (this._curentPlayer.leading) {
-          const suitDisplay = document.getElementById("played_suit");
-          suitDisplay.innerHTML = `Played Suit: ${cardObj.suit}`;
+          this._gameDisplay.innerHTML = `Played Suit: ${cardObj.suit}`;
           this._currentSuit = cardObj.suit;
         }
         if (
-          cardObj.suit !== this._currentSuit &&
-          deckFrom.hand
-          //!this.handChecker(deckFrom.hand, this._currentSuit)
+          (cardObj.suit !== this._currentSuit && deckFrom.hand) ||
+          !this.handChecker(deckFrom.hand, this._currentSuit)
         ) {
           console.log("oi");
           legalMove = false;
@@ -114,8 +115,7 @@ class Game {
           deckFrom.hand.splice(deckFrom.hand.indexOf(cardObj), 1);
           deckFrom.element.removeChild(cardObj.div);
           deckTo.addCard(cardObj);
-          deckFrom.cardPlayed = cardObj;
-          console.log(deckFrom.cardPlayed);
+          this._curentPlayer.cardPlayed = cardObj;
           this._opposingPlayer.messageDiv.innerHTML = "";
           this._turn++;
           this.gameTurnChecker();
@@ -129,19 +129,32 @@ class Game {
     if (this._turn % 2 === 0) {
       this._curentPlayer = this._players.player1;
     } else this._curentPlayer = this._players.player2;
-
     this.addPlayerPileListener(
       this._playArea.discardPile,
       this._curentPlayer.hand
     );
-    console.log(this._players.player1.cardPlayed);
-    // if (
-    //   this._curentPlayer.cardPlayed.order >
-    //   this._opposingPlayer.cardPlayed.order
-    // ) {
-    //   console.log(`${this._curentPlayer.hand.name} takes`);
-    // }
-    //else console.log(`${this._opposingPlayer.hand.name} takes`);
+    if (this._players.player1.cardPlayed && this._players.player2.cardPlayed) {
+      if (
+        this._players.player1.cardPlayed.order >
+        this._players.player2.cardPlayed.order
+      ) {
+        console.log("player 1 wins");
+        this._gameDisplay.innerHTML = "Player 1 takes";
+        this._players.player1.score++;
+        this._players.player1.scoreDiv.innerHTML = `This round: ${this._players.player1.score}`;
+      } else {
+        console.log("player 2 wins");
+        this._gameDisplay.innerHTML = "Player 2 takes";
+        this._players.player2.score++;
+        this._players.player2.scoreDiv.innerHTML = `This round: ${this._players.player2.score}`;
+      }
+      setTimeout(() => this.resetCards(), 2000);
+    }
+  }
+  resetCards() {
+    this._playArea.discardPile.element.innerHTML = "";
+    this._players.player1.cardPlayed = null;
+    this._players.player2.cardPlayed = null;
   }
 
   addCardToDeck(deckFrom) {

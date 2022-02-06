@@ -3,6 +3,7 @@
   margin: 0;
   text-align: center;
   box-sizing: border-box;
+  font-family: "Courier New", Courier, monospace;
 }
 
 $border: 2px solid black;
@@ -73,7 +74,7 @@ $border: 2px solid black;
       align-items: flex-start;
     }
   }
-  #played_suit {
+  #game_display {
     grid-area: suit;
   }
 

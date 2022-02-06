@@ -4,6 +4,7 @@
   text-align: center;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .red {
@@ -96,7 +97,7 @@
           align-items: flex-start;
 }
 
-.main #played_suit {
+.main #game_display {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
