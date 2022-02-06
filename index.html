@@ -9,39 +9,37 @@
     <script src="./app.js" type="module" async defer></script>
   </head>
   <body>
-    <header class="header"><h1>Game name</h1></header>
+    <header class="header"><h1>Trumps</h1></header>
     <main class="main">
+      <h2 id="played_suit">Played suit:</h2>
       <section class="player" id="player_1">
         <h2 class="player__title">Player 1</h2>
         <div class="player__cards" id="player_1_cards">
           <!-- This contains the players current cards in hand -->
         </div>
-        <div class="player1_actions"></div>
-        <div id="player_1_played">
-          <!-- This contains combinations of cards LAID by the player -->
-        </div>
+        <p id="player_1_message"></p>
       </section>
       <section class="player" id="player_2">
         <h2 class="player__title">Player 2</h2>
         <div class="player__cards" id="player_2_cards">
           <!-- This contains the players current cards in hand -->
         </div>
-        <div class="player2_actions"></div>
-        <div id="player_2_played">
-          <!-- This contains combinations of cards LAID by the player -->
-        </div>
+        <p id="player_2_message"></p>
       </section>
+
       <section class="board" id="board">
         <div class="board__pile" id="main_pile"></div>
         <div class="board__pile" id="played_pile">
           <!-- This contains cards discarded either from the players hands or from the main pile -->
-          <h2 id="played_suit">Played suit:</h2>
+          <div></div>
         </div>
       </section>
       <section id="score_area">
         <h2>Scores</h2>
         <div class="round">
           <!-- This contains information about the round - which round, and the players running total score -->
+          <h4>Player 1</h4>
+          <h4>Player 2</h4>
         </div>
       </section>
     </main>

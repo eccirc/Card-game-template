@@ -24,12 +24,11 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 10vh;
+  height: 5vh;
 }
 
 .card {
-  font-size: 150px;
-  border: 2px solid #272727;
+  font-size: 3.5rem;
   border-radius: 10px;
   padding: 0;
   background-color: white;
@@ -42,22 +41,23 @@
 .main {
   display: -ms-grid;
   display: grid;
-  gap: 10px;
   height: 90vh;
-  -ms-grid-columns: 20vw, 60vw, 20vw;
-      grid-template-columns: 20vw, 60vw, 20vw;
-  -ms-grid-rows: 5vh, 30vh, 30vh, 10vh;
-      grid-template-rows: 5vh, 30vh, 30vh, 10vh;
-      grid-template-areas: "p1 board p2" "p1 board p2" "p1 board p2" "score score score";
-}
-
-.main .board {
-  width: 50vw;
+  width: 100vw;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: (1fr)[6];
+      grid-template-rows: repeat(6, 1fr);
+      grid-template-areas: "p1 p1 p1" "suit suit suit" "board board board" "board board board" "p2 p2 p2" "score score score";
 }
 
 .main .board__pile {
-  border: 2px solid black;
-  width: 100%;
+  width: 50%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -69,37 +69,52 @@
           align-items: center;
 }
 
-.main .board__pile h2 {
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-}
-
 .main .player__cards {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.main .player__cards .card {
-  font-size: 100px;
+.main #score_area .round {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.main #played_suit {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: suit;
 }
 
 .main #player_1 {
   -ms-grid-row: 1;
-  -ms-grid-row-span: 3;
   -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
   grid-area: p1;
-  border: 2px solid black;
 }
 
 .main #player_2 {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 3;
-  -ms-grid-column: 3;
+  -ms-grid-row: 5;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
   grid-area: p2;
-  border: 2px solid black;
 }
 
 .main #board {
@@ -107,17 +122,17 @@
   display: -ms-flexbox;
   display: flex;
   gap: 10px;
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 3;
-  -ms-grid-column: 2;
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
   grid-area: board;
 }
 
 .main #score_area {
-  -ms-grid-row: 4;
+  -ms-grid-row: 6;
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-area: score;
-  border: 2px solid black;
 }
 /*# sourceMappingURL=styles.css.map */

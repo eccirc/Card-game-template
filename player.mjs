@@ -1,10 +1,12 @@
 export class Player {
-  constructor(handArr, playedArr, buttonDiv, messageDiv) {
+  constructor(handArr, playedArr, messageDiv) {
     this._hand = handArr;
     this._played = playedArr;
-    this._tempHand = [];
+    this._cardPlayed = null;
     this._score = 0;
     this._hasWon = null;
+    this._leading = false;
+    this._messageDiv = messageDiv;
   }
   get hand() {
     return this._hand;
@@ -12,31 +14,25 @@ export class Player {
   get played() {
     return this._played;
   }
-  get temp() {
-    return this._tempHand;
-  }
   get score() {
     return this._score;
   }
-  get turn() {
-    return this._turn;
+  get leading() {
+    return this._leading;
   }
-  get actions() {
-    return this._actions;
+  get messageDiv() {
+    return this._messageDiv;
   }
-  // set action() {
-  //   this._actions = toggle;
-  // }
+  get cardPlayed() {
+    return this._cardPlayed;
+  }
+  set cardPlayed(card) {
+    this._cardPlayed = card;
+  }
+  set leading(set) {
+    this._leading = set;
+  }
   set score(amount) {
     this._score = amount;
-  }
-  set turn(isTurn) {
-    this._turn = isTurn;
-  }
-  addToTemp(item) {
-    this._tempHand.push(item);
-  }
-  resetTemp() {
-    this._tempHand = [];
   }
 }
