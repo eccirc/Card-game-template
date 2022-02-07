@@ -49,10 +49,6 @@ body {
   position: absolute;
 }
 
-.hidden {
-  display: hidden;
-}
-
 h1,
 h2,
 p {
@@ -184,6 +180,9 @@ header {
   }
   .card {
     font-size: 6rem;
+  }
+  h4 {
+    font-size: 1.5rem;
   }
 }
 /*# sourceMappingURL=styles.css.map */

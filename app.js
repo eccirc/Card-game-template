@@ -1,7 +1,7 @@
-import { cards } from "./cards.mjs";
-import { Player } from "./player.mjs";
-import { Deck } from "./deck.mjs";
-import { cardsHeld as cardPile } from "./heldCards.mjs";
+import { cards } from "./JS/cards.mjs";
+import { Player } from "./JS/player.mjs";
+import { Deck } from "./JS/deck.mjs";
+import { cardsHeld as cardPile } from "./JS/heldCards.mjs";
 
 class Game {
   constructor() {
@@ -65,7 +65,7 @@ class Game {
     return testArr.includes(true);
   }
 
-  innerFunction(deckFrom, event) {
+  layCardPlayer(deckFrom, event) {
     const cardObj = deckFrom.hand.hand.filter(
       (item) => item.div.innerHTML === event.target.innerHTML
     )[0];
@@ -94,7 +94,7 @@ class Game {
 
   addPlayerPileListener(deckFrom) {
     deckFrom.hand.element.addEventListener("click", (event) => {
-      this.innerFunction(deckFrom, event);
+      this.layCardPlayer(deckFrom, event);
     });
   }
 
@@ -106,7 +106,6 @@ class Game {
 
     if (this._turn % 2 === 0) {
       current = this._players.player1;
-      current.hand.element.classList.innerHTML = "";
     } else current = this._players.player2;
 
     this.addPlayerPileListener(current);
@@ -153,13 +152,10 @@ class Game {
   addCardToDeck(deckFrom) {
     const cardObj = deckFrom.pop();
     const element = cardObj.div;
-    element.style.transform = "translateX(0) translateY(0)";
     element.innerHTML = cardObj.symbol;
     element.classList.remove("card--main", "black");
     element.classList.add(cardObj.colour);
-    element.classList.remove("card--main");
     return cardObj;
-    //[deckTo].addCard(cardObj);
   }
 }
 
