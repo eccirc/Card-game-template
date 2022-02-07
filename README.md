@@ -4,7 +4,7 @@
 
 ---
 
-** A 52 card game simulator built with HTML, SCSS and vanilla Javascript **
+**A 52 card game simulator built with HTML, SCSS and vanilla Javascript**
 
 ### This version
 
