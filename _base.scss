@@ -54,7 +54,13 @@ p {
 }
 
 header {
-  margin-top: 2rem;
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  #restart {
+    font-size: 1.5rem;
+    padding: 8px;
+  }
 }
 
 .main {
