@@ -159,6 +159,15 @@ class Game {
       player2.messageDiv.innerHTML = message;
       player1.messageDiv.innerHTML = "";
     }
+    //console.log(player1.hand.hand.length);
+    if (player1.hand.hand.length === 0 && player2.hand.hand.length === 0) {
+      const playersArr = Object.entries(this._players);
+
+      const winningPlayer = playersArr.sort(
+        (a, b) => a[1].score < b[1].score
+      )[0];
+      this._gameDisplay.innerHTML = winningPlayer[0] + " wins";
+    }
   }
   checkIsSuitMatch() {
     const playersArr = Object.entries(this._players);
