@@ -9,18 +9,11 @@ class Game {
     this._shuffled = [];
     this._turn = 0;
     this._currentSuit = null;
+    this._resetButton = document.getElementById("restart");
     this._gameDisplay = document.getElementById("game_display");
     this._players = {
-      player1: new Player(
-        new cardPile("Player_1", document.getElementById("player_1_cards")),
-        document.getElementById("p1_score"),
-        document.getElementById("player_1_message")
-      ),
-      player2: new Player(
-        new cardPile("Player_2", document.getElementById("player_2_cards")),
-        document.getElementById("p2_score"),
-        document.getElementById("player_2_message")
-      ),
+      player1: null,
+      player2: null,
     };
     this._playArea = {
       mainDeck: new cardPile("main deck", document.getElementById("main_pile")),
@@ -33,10 +26,24 @@ class Game {
   }
   startGame() {
     this.populateShuffledDeck(this._deck.cardsShuffled());
+    this.initPlayers();
     this._players.player1.leading = true;
     this.dealCards(10, this._players.player1.hand);
     this.dealCards(10, this._players.player2.hand);
     this.gameTurnChecker();
+  }
+
+  initPlayers() {
+    this._players.player1 = new Player(
+      new cardPile("Player_1", document.getElementById("player_1_cards")),
+      document.getElementById("p1_score"),
+      document.getElementById("player_1_message")
+    );
+    this._players.player2 = new Player(
+      new cardPile("Player_2", document.getElementById("player_2_cards")),
+      document.getElementById("p2_score"),
+      document.getElementById("player_2_message")
+    );
   }
 
   creatCardDownDiv(index) {
@@ -44,6 +51,22 @@ class Game {
     element.classList.add("card", "card--main", "black");
     element.innerHTML = "🂠";
     return element;
+  }
+
+  addRestartButton() {
+    this._resetButton.addEventListener("click", () => this.resetGame());
+  }
+
+  resetGame() {
+    this._players.player1.score = 0;
+    this._players.player2.score = 0;
+    this._players.player1.hand.hand = [];
+    this._players.player2.hand.hand = [];
+    this._players.player1.hand.element.innerHTML = "";
+    this._players.player2.hand.element.innerHTML = "";
+    this._turn = 0;
+    this.resetCards();
+    this.startGame();
   }
 
   populateShuffledDeck(array) {
@@ -159,5 +182,6 @@ class Game {
   }
 }
 
-const tens = new Game(board);
-tens.startGame();
+const game = new Game(board);
+game.startGame();
+game.addRestartButton();

@@ -13,6 +13,12 @@ export class cardsHeld {
   get name() {
     return this._name;
   }
+  set hand(hand) {
+    this._hand = hand;
+  }
+  set element(element) {
+    this._element = element;
+  }
   addCard(cardObj) {
     this._hand.push(cardObj);
     this.appendCardToElement(cardObj.div);

@@ -83,7 +83,7 @@ header #restart {
 .main {
   display: -ms-grid;
   display: grid;
-  height: 90vh;
+  height: 80vh;
   width: 90vw;
   margin: auto;
   -webkit-box-pack: center;
