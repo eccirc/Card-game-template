@@ -64,6 +64,7 @@ class Game {
     this._players.player2.hand.hand = [];
     this._players.player1.hand.element.innerHTML = "";
     this._players.player2.hand.element.innerHTML = "";
+    this._gameDisplay.innerHTML = "Played suit: ";
     this._turn = 0;
     this.resetCards();
     this.startGame();
