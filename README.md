@@ -1,4 +1,5 @@
-# Play Cards 
+# Play Cards
+
 **Author** David Williams
 
 **Date** Febuary 2022
@@ -7,7 +8,7 @@
 
 ## About
 
-This project sought to solidify concepts around Object Oriented Programming (OOP) in JavaScript, utilising classes. This project serves as a testbed for writing basic card game logic, with this iteration mimics a basic game of whist. 
+This project sought to solidify concepts around Object Oriented Programming (OOP) in JavaScript, utilising classes. This project serves as a testbed for writing basic card game logic, with this iteration mimics a basic game of whist.
 
 **To Do**
 
@@ -25,4 +26,4 @@ This project sought to solidify concepts around Object Oriented Programming (OOP
 
 ### Desktop
 
-![Play Cards](./assets/cards-screenshot.png)
+![Play Cards](./assets/cards_screenshot.png)
