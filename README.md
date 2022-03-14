@@ -1,11 +1,28 @@
-# PLAY CARDS
+# Play Cards 
+**Author** David Williams
 
-### David Williams 2022
+**Date** Febuary 2022
 
----
+**Last Updated** Febuary 2022
 
-**A 52 card game simulator built with HTML, SCSS and vanilla Javascript**
+## About
 
-### This version
+This project sought to solidify concepts around Object Oriented Programming (OOP) in JavaScript, utilising classes. This project serves as a testbed for writing basic card game logic, with this iteration mimics a basic game of whist. 
 
-Is modelled on the rules of [Whist](https://www.coololdgames.com/card-games/trick-taking/whist/) for two players
+**To Do**
+
+- Hide other players cards when it is not their turn
+- Logic for throwing away a card when played suit can't be matched
+- Code re-factor
+
+## Technologies
+
+**HTML**, **SCSS**, **Javascript**
+
+## Credits / Attributions
+
+## Screenshots
+
+### Desktop
+
+![Play Cards](./assets/cards-screenshot.png)
